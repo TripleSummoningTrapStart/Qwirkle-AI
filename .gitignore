@@ -1,3 +1,3 @@
 *.suo
-bin
-obj
+\Qwirkle\Qwirkle\bin\*
+\Qwirkle\Qwirkle\obj\*

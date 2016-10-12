@@ -1,3 +1,4 @@
 *.suo
 Qwirkle/Qwirkle/bin/*
 Qwirkle/Qwirkle/obj/*
+Qwirkle/.vs/*

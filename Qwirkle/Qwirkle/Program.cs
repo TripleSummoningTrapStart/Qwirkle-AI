@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace Qwirkle
 {
+    public delegate bool MakePlayDelegate(Tuple<Block, int, int> play);
+    public delegate void UpdateDelegate(Block[] playerHand, int PlayerScore, int ComputerScore, Block[,] Board);
     static class Program
     {
         /// <summary>
@@ -14,9 +16,15 @@ namespace Qwirkle
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Qwirkle());
+            List<UpdateDelegate> l = new List<UpdateDelegate>();
+            PrologCommunicator prolog = new PrologCommunicator();
+            Controller c = new Controller(l);
+            Qwirkle form = new Qwirkle(c.MakePlay, c, prolog);
+            l.Add(form.UpdateForm);
+            Application.Run(form);
         }
-    }
+}
 }

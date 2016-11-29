@@ -8,21 +8,21 @@ namespace Qwirkle
 {
     public enum BlockColor
     {
-        Red,
-        Orange,
-        Yellow,
-        Green,
-        Blue,
-        Purple
+        red,
+        orange,
+        yellow,
+        green,
+        blue,
+        purple
     }
 
     public enum BlockShape
     {
-        Circle,
-        Square,
-        Diamond,
-        Clover,
-        Star,
-        Cross
+        circle,
+        square,
+        diamond,
+        clover,
+        star,
+        cross
     }
 }

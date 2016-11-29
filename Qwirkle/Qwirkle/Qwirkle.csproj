@@ -52,6 +52,9 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="BlockTypes.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Qwirkle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +75,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -88,6 +92,44 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="QwirkleFacts.pl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Blockimages\circle-blue.png" />
+    <EmbeddedResource Include="Blockimages\circle-green.png" />
+    <EmbeddedResource Include="Blockimages\circle-orange.png" />
+    <EmbeddedResource Include="Blockimages\circle-purple.png" />
+    <EmbeddedResource Include="Blockimages\circle-red.png" />
+    <EmbeddedResource Include="Blockimages\circle-yellow.png" />
+    <EmbeddedResource Include="Blockimages\clover-blue.png" />
+    <EmbeddedResource Include="Blockimages\clover-green.png" />
+    <EmbeddedResource Include="Blockimages\clover-orange.png" />
+    <EmbeddedResource Include="Blockimages\clover-purple.png" />
+    <EmbeddedResource Include="Blockimages\clover-red.png" />
+    <EmbeddedResource Include="Blockimages\clover-yellow.png" />
+    <EmbeddedResource Include="Blockimages\cross-blue.png" />
+    <EmbeddedResource Include="Blockimages\cross-green.png" />
+    <EmbeddedResource Include="Blockimages\cross-orange.png" />
+    <EmbeddedResource Include="Blockimages\cross-purple.png" />
+    <EmbeddedResource Include="Blockimages\cross-red.png" />
+    <EmbeddedResource Include="Blockimages\cross-yellow.png" />
+    <EmbeddedResource Include="Blockimages\diamond-blue.png" />
+    <EmbeddedResource Include="Blockimages\diamond-green.png" />
+    <EmbeddedResource Include="Blockimages\diamond-orange.png" />
+    <EmbeddedResource Include="Blockimages\diamond-purple.png" />
+    <EmbeddedResource Include="Blockimages\diamond-red.png" />
+    <EmbeddedResource Include="Blockimages\diamond-yellow.png" />
+    <EmbeddedResource Include="Blockimages\square-blue.png" />
+    <EmbeddedResource Include="Blockimages\square-green.png" />
+    <EmbeddedResource Include="Blockimages\square-orange.png" />
+    <EmbeddedResource Include="Blockimages\square-purple.png" />
+    <EmbeddedResource Include="Blockimages\square-red.png" />
+    <EmbeddedResource Include="Blockimages\square-yellow.png" />
+    <EmbeddedResource Include="Blockimages\star-blue.png" />
+    <EmbeddedResource Include="Blockimages\star-green.png" />
+    <EmbeddedResource Include="Blockimages\star-orange.png" />
+    <EmbeddedResource Include="Blockimages\star-purple.png" />
+    <EmbeddedResource Include="Blockimages\star-red.png" />
+    <EmbeddedResource Include="Blockimages\star-yellow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

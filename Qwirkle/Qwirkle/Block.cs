@@ -9,30 +9,28 @@ namespace Qwirkle
 {
     public class Block
     {
-        private BlockColor _color;
-        private BlockShape _shape;
+        public BlockColor Color { get; private set; }
+        public BlockShape Shape { get; private set; }
 
-        public BlockShape Shape
-        {
-            get { return _shape; }
-            set { _shape = value; }
-        }
+        public Image Image { get; private set; }
 
-        public BlockColor Color
-        {
-            get { return _color; }
-            set { _color = value; }
-        }
+        //public BlockShape Shape
+        //{
+        //    get { return _shape; }
+        //    set { _shape = value; }
+        //}
 
-        public Block(BlockColor color, BlockShape shape)
-        {
-            _color = color;
-            _shape = shape;
-        }
+        //public BlockColor Color
+        //{
+        //    get { return _color; }
+        //    set { _color = value; }
+        //}
 
-        public Image GetImage()
+        public Block(BlockColor color, BlockShape shape, Image image)
         {
-            throw new NotImplementedException();
+            this.Color = color;
+            this.Shape = shape;
+            this.Image = image;
         }
     }
 }

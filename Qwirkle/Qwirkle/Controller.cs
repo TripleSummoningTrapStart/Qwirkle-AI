@@ -34,10 +34,16 @@ namespace Qwirkle
             }
             return hand;
         }
-        public bool MakePlay(Tuple<Block, int, int> play)
+        public bool MakePlay(List<Tuple<Block, int, int>> play)
         {
+            if(play == null)
+            {
+                FireObserver();
+            }
+            else
+            {
 
-            FireObserver();
+            }
             return false;
         }
     }

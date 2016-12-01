@@ -69,8 +69,32 @@ namespace Qwirkle
                     }
                     _human.FillHand(fillhand);
                     _board.updateBoard(play);
-                    //int HumanScore = Prolog get score
-                    
+                    int humanScore = 0;
+                    for (int i = 0; i < play.Count; i++)
+                    {
+                        int totalCount = 1;
+                        int count;
+                        humanScore += _board.ScorePlay(play[i], 1, 0, play, out count); // left
+                        totalCount += count;
+                        humanScore += _board.ScorePlay(play[i], -1, 0, play, out count); // right
+                        totalCount += count;
+                        if (totalCount== 6)
+                        {
+                            humanScore += 6;
+                        }
+                        totalCount = 1;
+                        humanScore += _board.ScorePlay(play[i], 0, 1, play, out count); // up
+                        totalCount += count;
+                        humanScore += _board.ScorePlay(play[i], 0, -1, play, out count); // down
+                        totalCount += count;
+                        if (totalCount == 6)
+                        {
+                            humanScore += 6;
+                        }
+                        humanScore += 1; //for the current peice
+                        play.RemoveAt(i);
+                    }
+                    _human.UpdateScore(humanScore);
                     FireObserver();
                     return true;
                 }

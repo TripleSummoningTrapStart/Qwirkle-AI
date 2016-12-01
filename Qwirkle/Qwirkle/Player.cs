@@ -34,7 +34,10 @@ namespace Qwirkle
             }
             Hand = HandList.ToArray();
         }
-
+        public void UpdateScore(int score)
+        {
+            this.Score += score;
+        }
         //public virtual List<Tuple<Block, int, int>> DeterminePlay(string[] Plays);
     }
 }

@@ -49,7 +49,7 @@ namespace Qwirkle
             _holdPlay.Clear();
 
         }
-        public void UpdateForm(Block[] playerHand, int PlayerScore, int ComputerScore, Block[,] Board)
+        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board)
         {
             Playerhand1.Image = playerHand[0].Image;
             Playerhand2.Image = playerHand[1].Image;
@@ -63,6 +63,8 @@ namespace Qwirkle
             Playerhand4.Tag = playerHand[3];
             Playerhand5.Tag = playerHand[4];
             Playerhand6.Tag = playerHand[5];
+
+            PlayerScore.Text = playerScore.ToString();
         }
 
         private void pictureBox_Click(object sender, EventArgs e)

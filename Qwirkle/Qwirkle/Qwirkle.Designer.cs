@@ -109,7 +109,7 @@
             this.board06 = new System.Windows.Forms.PictureBox();
             this.board05 = new System.Windows.Forms.PictureBox();
             this.board04 = new System.Windows.Forms.PictureBox();
-            this.board3 = new System.Windows.Forms.PictureBox();
+            this.board03 = new System.Windows.Forms.PictureBox();
             this.board02 = new System.Windows.Forms.PictureBox();
             this.board01 = new System.Windows.Forms.PictureBox();
             this.board00 = new System.Windows.Forms.PictureBox();
@@ -188,7 +188,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.board06)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.board05)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.board04)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.board3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.board03)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.board02)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.board01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.board00)).BeginInit();
@@ -196,10 +196,9 @@
             // 
             // ux_TestBtn
             // 
-            this.ux_TestBtn.Location = new System.Drawing.Point(579, 676);
-            this.ux_TestBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.ux_TestBtn.Location = new System.Drawing.Point(434, 549);
             this.ux_TestBtn.Name = "ux_TestBtn";
-            this.ux_TestBtn.Size = new System.Drawing.Size(100, 28);
+            this.ux_TestBtn.Size = new System.Drawing.Size(75, 23);
             this.ux_TestBtn.TabIndex = 0;
             this.ux_TestBtn.Text = "Test";
             this.ux_TestBtn.UseVisualStyleBackColor = true;
@@ -209,9 +208,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 700);
+            this.label1.Location = new System.Drawing.Point(9, 569);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 20);
+            this.label1.Size = new System.Drawing.Size(51, 17);
             this.label1.TabIndex = 80;
             this.label1.Text = "Hand:";
             // 
@@ -219,9 +219,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(660, 23);
+            this.label2.Location = new System.Drawing.Point(495, 19);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 20);
+            this.label2.Size = new System.Drawing.Size(55, 17);
             this.label2.TabIndex = 81;
             this.label2.Text = "Score:";
             // 
@@ -229,9 +230,10 @@
             // 
             this.Label3.AutoSize = true;
             this.Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label3.Location = new System.Drawing.Point(669, 58);
+            this.Label3.Location = new System.Drawing.Point(502, 47);
+            this.Label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(40, 20);
+            this.Label3.Size = new System.Drawing.Size(36, 17);
             this.Label3.TabIndex = 82;
             this.Label3.Text = "You";
             // 
@@ -239,9 +241,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(680, 142);
+            this.label4.Location = new System.Drawing.Point(510, 115);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 20);
+            this.label4.Size = new System.Drawing.Size(22, 17);
             this.label4.TabIndex = 83;
             this.label4.Text = "AI";
             // 
@@ -249,9 +252,10 @@
             // 
             this.PlayerScore.AutoSize = true;
             this.PlayerScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerScore.Location = new System.Drawing.Point(681, 84);
+            this.PlayerScore.Location = new System.Drawing.Point(511, 68);
+            this.PlayerScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.PlayerScore.Name = "PlayerScore";
-            this.PlayerScore.Size = new System.Drawing.Size(19, 20);
+            this.PlayerScore.Size = new System.Drawing.Size(17, 17);
             this.PlayerScore.TabIndex = 84;
             this.PlayerScore.Text = "0";
             // 
@@ -259,19 +263,20 @@
             // 
             this.AIScore.AutoSize = true;
             this.AIScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AIScore.Location = new System.Drawing.Point(681, 174);
+            this.AIScore.Location = new System.Drawing.Point(511, 141);
+            this.AIScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.AIScore.Name = "AIScore";
-            this.AIScore.Size = new System.Drawing.Size(19, 20);
+            this.AIScore.Size = new System.Drawing.Size(17, 17);
             this.AIScore.TabIndex = 85;
             this.AIScore.Text = "0";
             // 
             // Playerhand6
             // 
             this.Playerhand6.BackColor = System.Drawing.SystemColors.Window;
-            this.Playerhand6.Location = new System.Drawing.Point(499, 676);
-            this.Playerhand6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Playerhand6.Location = new System.Drawing.Point(374, 549);
+            this.Playerhand6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Playerhand6.Name = "Playerhand6";
-            this.Playerhand6.Size = new System.Drawing.Size(75, 66);
+            this.Playerhand6.Size = new System.Drawing.Size(56, 54);
             this.Playerhand6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Playerhand6.TabIndex = 79;
             this.Playerhand6.TabStop = false;
@@ -280,10 +285,10 @@
             // Playerhand5
             // 
             this.Playerhand5.BackColor = System.Drawing.SystemColors.Window;
-            this.Playerhand5.Location = new System.Drawing.Point(417, 676);
-            this.Playerhand5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Playerhand5.Location = new System.Drawing.Point(313, 549);
+            this.Playerhand5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Playerhand5.Name = "Playerhand5";
-            this.Playerhand5.Size = new System.Drawing.Size(75, 66);
+            this.Playerhand5.Size = new System.Drawing.Size(56, 54);
             this.Playerhand5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Playerhand5.TabIndex = 78;
             this.Playerhand5.TabStop = false;
@@ -292,10 +297,10 @@
             // Playerhand4
             // 
             this.Playerhand4.BackColor = System.Drawing.SystemColors.Window;
-            this.Playerhand4.Location = new System.Drawing.Point(336, 676);
-            this.Playerhand4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Playerhand4.Location = new System.Drawing.Point(252, 549);
+            this.Playerhand4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Playerhand4.Name = "Playerhand4";
-            this.Playerhand4.Size = new System.Drawing.Size(75, 66);
+            this.Playerhand4.Size = new System.Drawing.Size(56, 54);
             this.Playerhand4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Playerhand4.TabIndex = 77;
             this.Playerhand4.TabStop = false;
@@ -304,10 +309,10 @@
             // Playerhand3
             // 
             this.Playerhand3.BackColor = System.Drawing.SystemColors.Window;
-            this.Playerhand3.Location = new System.Drawing.Point(255, 676);
-            this.Playerhand3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Playerhand3.Location = new System.Drawing.Point(191, 549);
+            this.Playerhand3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Playerhand3.Name = "Playerhand3";
-            this.Playerhand3.Size = new System.Drawing.Size(75, 66);
+            this.Playerhand3.Size = new System.Drawing.Size(56, 54);
             this.Playerhand3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Playerhand3.TabIndex = 76;
             this.Playerhand3.TabStop = false;
@@ -316,10 +321,10 @@
             // Playerhand2
             // 
             this.Playerhand2.BackColor = System.Drawing.SystemColors.Window;
-            this.Playerhand2.Location = new System.Drawing.Point(173, 676);
-            this.Playerhand2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Playerhand2.Location = new System.Drawing.Point(130, 549);
+            this.Playerhand2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Playerhand2.Name = "Playerhand2";
-            this.Playerhand2.Size = new System.Drawing.Size(75, 66);
+            this.Playerhand2.Size = new System.Drawing.Size(56, 54);
             this.Playerhand2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Playerhand2.TabIndex = 75;
             this.Playerhand2.TabStop = false;
@@ -328,10 +333,10 @@
             // Playerhand1
             // 
             this.Playerhand1.BackColor = System.Drawing.SystemColors.Window;
-            this.Playerhand1.Location = new System.Drawing.Point(93, 676);
-            this.Playerhand1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Playerhand1.Location = new System.Drawing.Point(70, 549);
+            this.Playerhand1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Playerhand1.Name = "Playerhand1";
-            this.Playerhand1.Size = new System.Drawing.Size(75, 66);
+            this.Playerhand1.Size = new System.Drawing.Size(56, 54);
             this.Playerhand1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Playerhand1.TabIndex = 74;
             this.Playerhand1.TabStop = false;
@@ -340,10 +345,10 @@
             // board87
             // 
             this.board87.BackColor = System.Drawing.SystemColors.Window;
-            this.board87.Location = new System.Drawing.Point(579, 588);
-            this.board87.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board87.Location = new System.Drawing.Point(434, 478);
+            this.board87.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board87.Name = "board87";
-            this.board87.Size = new System.Drawing.Size(75, 66);
+            this.board87.Size = new System.Drawing.Size(56, 54);
             this.board87.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board87.TabIndex = 73;
             this.board87.TabStop = false;
@@ -352,10 +357,10 @@
             // board86
             // 
             this.board86.BackColor = System.Drawing.SystemColors.Window;
-            this.board86.Location = new System.Drawing.Point(499, 588);
-            this.board86.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board86.Location = new System.Drawing.Point(374, 478);
+            this.board86.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board86.Name = "board86";
-            this.board86.Size = new System.Drawing.Size(75, 66);
+            this.board86.Size = new System.Drawing.Size(56, 54);
             this.board86.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board86.TabIndex = 72;
             this.board86.TabStop = false;
@@ -364,10 +369,10 @@
             // board85
             // 
             this.board85.BackColor = System.Drawing.SystemColors.Window;
-            this.board85.Location = new System.Drawing.Point(417, 588);
-            this.board85.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board85.Location = new System.Drawing.Point(313, 478);
+            this.board85.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board85.Name = "board85";
-            this.board85.Size = new System.Drawing.Size(75, 66);
+            this.board85.Size = new System.Drawing.Size(56, 54);
             this.board85.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board85.TabIndex = 71;
             this.board85.TabStop = false;
@@ -376,10 +381,10 @@
             // board84
             // 
             this.board84.BackColor = System.Drawing.SystemColors.Window;
-            this.board84.Location = new System.Drawing.Point(336, 588);
-            this.board84.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board84.Location = new System.Drawing.Point(252, 478);
+            this.board84.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board84.Name = "board84";
-            this.board84.Size = new System.Drawing.Size(75, 66);
+            this.board84.Size = new System.Drawing.Size(56, 54);
             this.board84.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board84.TabIndex = 70;
             this.board84.TabStop = false;
@@ -388,10 +393,10 @@
             // board83
             // 
             this.board83.BackColor = System.Drawing.SystemColors.Window;
-            this.board83.Location = new System.Drawing.Point(255, 588);
-            this.board83.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board83.Location = new System.Drawing.Point(191, 478);
+            this.board83.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board83.Name = "board83";
-            this.board83.Size = new System.Drawing.Size(75, 66);
+            this.board83.Size = new System.Drawing.Size(56, 54);
             this.board83.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board83.TabIndex = 69;
             this.board83.TabStop = false;
@@ -400,10 +405,10 @@
             // board82
             // 
             this.board82.BackColor = System.Drawing.SystemColors.Window;
-            this.board82.Location = new System.Drawing.Point(173, 588);
-            this.board82.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board82.Location = new System.Drawing.Point(130, 478);
+            this.board82.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board82.Name = "board82";
-            this.board82.Size = new System.Drawing.Size(75, 66);
+            this.board82.Size = new System.Drawing.Size(56, 54);
             this.board82.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board82.TabIndex = 68;
             this.board82.TabStop = false;
@@ -412,10 +417,10 @@
             // board81
             // 
             this.board81.BackColor = System.Drawing.SystemColors.Window;
-            this.board81.Location = new System.Drawing.Point(93, 588);
-            this.board81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board81.Location = new System.Drawing.Point(70, 478);
+            this.board81.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board81.Name = "board81";
-            this.board81.Size = new System.Drawing.Size(75, 66);
+            this.board81.Size = new System.Drawing.Size(56, 54);
             this.board81.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board81.TabIndex = 67;
             this.board81.TabStop = false;
@@ -424,10 +429,10 @@
             // board80
             // 
             this.board80.BackColor = System.Drawing.SystemColors.Window;
-            this.board80.Location = new System.Drawing.Point(12, 588);
-            this.board80.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board80.Location = new System.Drawing.Point(9, 478);
+            this.board80.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board80.Name = "board80";
-            this.board80.Size = new System.Drawing.Size(75, 66);
+            this.board80.Size = new System.Drawing.Size(56, 54);
             this.board80.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board80.TabIndex = 66;
             this.board80.TabStop = false;
@@ -436,10 +441,10 @@
             // board77
             // 
             this.board77.BackColor = System.Drawing.SystemColors.Window;
-            this.board77.Location = new System.Drawing.Point(579, 515);
-            this.board77.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board77.Location = new System.Drawing.Point(434, 418);
+            this.board77.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board77.Name = "board77";
-            this.board77.Size = new System.Drawing.Size(75, 66);
+            this.board77.Size = new System.Drawing.Size(56, 54);
             this.board77.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board77.TabIndex = 65;
             this.board77.TabStop = false;
@@ -448,10 +453,10 @@
             // board76
             // 
             this.board76.BackColor = System.Drawing.SystemColors.Window;
-            this.board76.Location = new System.Drawing.Point(499, 515);
-            this.board76.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board76.Location = new System.Drawing.Point(374, 418);
+            this.board76.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board76.Name = "board76";
-            this.board76.Size = new System.Drawing.Size(75, 66);
+            this.board76.Size = new System.Drawing.Size(56, 54);
             this.board76.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board76.TabIndex = 64;
             this.board76.TabStop = false;
@@ -460,10 +465,10 @@
             // board75
             // 
             this.board75.BackColor = System.Drawing.SystemColors.Window;
-            this.board75.Location = new System.Drawing.Point(417, 516);
-            this.board75.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board75.Location = new System.Drawing.Point(313, 419);
+            this.board75.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board75.Name = "board75";
-            this.board75.Size = new System.Drawing.Size(75, 66);
+            this.board75.Size = new System.Drawing.Size(56, 54);
             this.board75.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board75.TabIndex = 63;
             this.board75.TabStop = false;
@@ -472,10 +477,10 @@
             // board74
             // 
             this.board74.BackColor = System.Drawing.SystemColors.Window;
-            this.board74.Location = new System.Drawing.Point(336, 515);
-            this.board74.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board74.Location = new System.Drawing.Point(252, 418);
+            this.board74.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board74.Name = "board74";
-            this.board74.Size = new System.Drawing.Size(75, 66);
+            this.board74.Size = new System.Drawing.Size(56, 54);
             this.board74.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board74.TabIndex = 62;
             this.board74.TabStop = false;
@@ -484,10 +489,10 @@
             // board73
             // 
             this.board73.BackColor = System.Drawing.SystemColors.Window;
-            this.board73.Location = new System.Drawing.Point(255, 516);
-            this.board73.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board73.Location = new System.Drawing.Point(191, 419);
+            this.board73.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board73.Name = "board73";
-            this.board73.Size = new System.Drawing.Size(75, 66);
+            this.board73.Size = new System.Drawing.Size(56, 54);
             this.board73.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board73.TabIndex = 61;
             this.board73.TabStop = false;
@@ -496,10 +501,10 @@
             // board72
             // 
             this.board72.BackColor = System.Drawing.SystemColors.Window;
-            this.board72.Location = new System.Drawing.Point(173, 516);
-            this.board72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board72.Location = new System.Drawing.Point(130, 419);
+            this.board72.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board72.Name = "board72";
-            this.board72.Size = new System.Drawing.Size(75, 66);
+            this.board72.Size = new System.Drawing.Size(56, 54);
             this.board72.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board72.TabIndex = 60;
             this.board72.TabStop = false;
@@ -508,10 +513,10 @@
             // board71
             // 
             this.board71.BackColor = System.Drawing.SystemColors.Window;
-            this.board71.Location = new System.Drawing.Point(93, 516);
-            this.board71.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board71.Location = new System.Drawing.Point(70, 419);
+            this.board71.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board71.Name = "board71";
-            this.board71.Size = new System.Drawing.Size(75, 66);
+            this.board71.Size = new System.Drawing.Size(56, 54);
             this.board71.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board71.TabIndex = 59;
             this.board71.TabStop = false;
@@ -520,10 +525,10 @@
             // board70
             // 
             this.board70.BackColor = System.Drawing.SystemColors.Window;
-            this.board70.Location = new System.Drawing.Point(12, 516);
-            this.board70.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board70.Location = new System.Drawing.Point(9, 419);
+            this.board70.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board70.Name = "board70";
-            this.board70.Size = new System.Drawing.Size(75, 66);
+            this.board70.Size = new System.Drawing.Size(56, 54);
             this.board70.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board70.TabIndex = 58;
             this.board70.TabStop = false;
@@ -532,10 +537,10 @@
             // board67
             // 
             this.board67.BackColor = System.Drawing.SystemColors.Window;
-            this.board67.Location = new System.Drawing.Point(579, 444);
-            this.board67.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board67.Location = new System.Drawing.Point(434, 361);
+            this.board67.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board67.Name = "board67";
-            this.board67.Size = new System.Drawing.Size(75, 66);
+            this.board67.Size = new System.Drawing.Size(56, 54);
             this.board67.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board67.TabIndex = 57;
             this.board67.TabStop = false;
@@ -544,10 +549,10 @@
             // board66
             // 
             this.board66.BackColor = System.Drawing.SystemColors.Window;
-            this.board66.Location = new System.Drawing.Point(499, 444);
-            this.board66.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board66.Location = new System.Drawing.Point(374, 361);
+            this.board66.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board66.Name = "board66";
-            this.board66.Size = new System.Drawing.Size(75, 66);
+            this.board66.Size = new System.Drawing.Size(56, 54);
             this.board66.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board66.TabIndex = 56;
             this.board66.TabStop = false;
@@ -556,10 +561,10 @@
             // board65
             // 
             this.board65.BackColor = System.Drawing.SystemColors.Window;
-            this.board65.Location = new System.Drawing.Point(417, 444);
-            this.board65.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board65.Location = new System.Drawing.Point(313, 361);
+            this.board65.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board65.Name = "board65";
-            this.board65.Size = new System.Drawing.Size(75, 66);
+            this.board65.Size = new System.Drawing.Size(56, 54);
             this.board65.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board65.TabIndex = 55;
             this.board65.TabStop = false;
@@ -568,10 +573,10 @@
             // board64
             // 
             this.board64.BackColor = System.Drawing.SystemColors.Window;
-            this.board64.Location = new System.Drawing.Point(336, 444);
-            this.board64.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board64.Location = new System.Drawing.Point(252, 361);
+            this.board64.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board64.Name = "board64";
-            this.board64.Size = new System.Drawing.Size(75, 66);
+            this.board64.Size = new System.Drawing.Size(56, 54);
             this.board64.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board64.TabIndex = 54;
             this.board64.TabStop = false;
@@ -580,10 +585,10 @@
             // board63
             // 
             this.board63.BackColor = System.Drawing.SystemColors.Window;
-            this.board63.Location = new System.Drawing.Point(255, 444);
-            this.board63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board63.Location = new System.Drawing.Point(191, 361);
+            this.board63.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board63.Name = "board63";
-            this.board63.Size = new System.Drawing.Size(75, 66);
+            this.board63.Size = new System.Drawing.Size(56, 54);
             this.board63.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board63.TabIndex = 53;
             this.board63.TabStop = false;
@@ -592,10 +597,10 @@
             // board62
             // 
             this.board62.BackColor = System.Drawing.SystemColors.Window;
-            this.board62.Location = new System.Drawing.Point(173, 444);
-            this.board62.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board62.Location = new System.Drawing.Point(130, 361);
+            this.board62.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board62.Name = "board62";
-            this.board62.Size = new System.Drawing.Size(75, 66);
+            this.board62.Size = new System.Drawing.Size(56, 54);
             this.board62.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board62.TabIndex = 52;
             this.board62.TabStop = false;
@@ -604,10 +609,10 @@
             // board61
             // 
             this.board61.BackColor = System.Drawing.SystemColors.Window;
-            this.board61.Location = new System.Drawing.Point(93, 444);
-            this.board61.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board61.Location = new System.Drawing.Point(70, 361);
+            this.board61.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board61.Name = "board61";
-            this.board61.Size = new System.Drawing.Size(75, 66);
+            this.board61.Size = new System.Drawing.Size(56, 54);
             this.board61.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board61.TabIndex = 51;
             this.board61.TabStop = false;
@@ -616,10 +621,10 @@
             // board60
             // 
             this.board60.BackColor = System.Drawing.SystemColors.Window;
-            this.board60.Location = new System.Drawing.Point(12, 444);
-            this.board60.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board60.Location = new System.Drawing.Point(9, 361);
+            this.board60.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board60.Name = "board60";
-            this.board60.Size = new System.Drawing.Size(75, 66);
+            this.board60.Size = new System.Drawing.Size(56, 54);
             this.board60.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board60.TabIndex = 50;
             this.board60.TabStop = false;
@@ -628,10 +633,10 @@
             // board57
             // 
             this.board57.BackColor = System.Drawing.SystemColors.Window;
-            this.board57.Location = new System.Drawing.Point(579, 371);
-            this.board57.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board57.Location = new System.Drawing.Point(434, 301);
+            this.board57.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board57.Name = "board57";
-            this.board57.Size = new System.Drawing.Size(75, 66);
+            this.board57.Size = new System.Drawing.Size(56, 54);
             this.board57.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board57.TabIndex = 49;
             this.board57.TabStop = false;
@@ -640,10 +645,10 @@
             // board56
             // 
             this.board56.BackColor = System.Drawing.SystemColors.Window;
-            this.board56.Location = new System.Drawing.Point(499, 371);
-            this.board56.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board56.Location = new System.Drawing.Point(374, 301);
+            this.board56.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board56.Name = "board56";
-            this.board56.Size = new System.Drawing.Size(75, 66);
+            this.board56.Size = new System.Drawing.Size(56, 54);
             this.board56.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board56.TabIndex = 48;
             this.board56.TabStop = false;
@@ -652,10 +657,10 @@
             // board55
             // 
             this.board55.BackColor = System.Drawing.SystemColors.Window;
-            this.board55.Location = new System.Drawing.Point(417, 372);
-            this.board55.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board55.Location = new System.Drawing.Point(313, 302);
+            this.board55.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board55.Name = "board55";
-            this.board55.Size = new System.Drawing.Size(75, 66);
+            this.board55.Size = new System.Drawing.Size(56, 54);
             this.board55.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board55.TabIndex = 47;
             this.board55.TabStop = false;
@@ -664,10 +669,10 @@
             // board54
             // 
             this.board54.BackColor = System.Drawing.SystemColors.Window;
-            this.board54.Location = new System.Drawing.Point(336, 371);
-            this.board54.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board54.Location = new System.Drawing.Point(252, 301);
+            this.board54.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board54.Name = "board54";
-            this.board54.Size = new System.Drawing.Size(75, 66);
+            this.board54.Size = new System.Drawing.Size(56, 54);
             this.board54.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board54.TabIndex = 46;
             this.board54.TabStop = false;
@@ -676,10 +681,10 @@
             // board53
             // 
             this.board53.BackColor = System.Drawing.SystemColors.Window;
-            this.board53.Location = new System.Drawing.Point(255, 372);
-            this.board53.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board53.Location = new System.Drawing.Point(191, 302);
+            this.board53.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board53.Name = "board53";
-            this.board53.Size = new System.Drawing.Size(75, 66);
+            this.board53.Size = new System.Drawing.Size(56, 54);
             this.board53.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board53.TabIndex = 45;
             this.board53.TabStop = false;
@@ -688,10 +693,10 @@
             // board52
             // 
             this.board52.BackColor = System.Drawing.SystemColors.Window;
-            this.board52.Location = new System.Drawing.Point(173, 372);
-            this.board52.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board52.Location = new System.Drawing.Point(130, 302);
+            this.board52.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board52.Name = "board52";
-            this.board52.Size = new System.Drawing.Size(75, 66);
+            this.board52.Size = new System.Drawing.Size(56, 54);
             this.board52.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board52.TabIndex = 44;
             this.board52.TabStop = false;
@@ -700,10 +705,10 @@
             // board51
             // 
             this.board51.BackColor = System.Drawing.SystemColors.Window;
-            this.board51.Location = new System.Drawing.Point(93, 372);
-            this.board51.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board51.Location = new System.Drawing.Point(70, 302);
+            this.board51.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board51.Name = "board51";
-            this.board51.Size = new System.Drawing.Size(75, 66);
+            this.board51.Size = new System.Drawing.Size(56, 54);
             this.board51.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board51.TabIndex = 43;
             this.board51.TabStop = false;
@@ -712,10 +717,10 @@
             // board50
             // 
             this.board50.BackColor = System.Drawing.SystemColors.Window;
-            this.board50.Location = new System.Drawing.Point(12, 372);
-            this.board50.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board50.Location = new System.Drawing.Point(9, 302);
+            this.board50.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board50.Name = "board50";
-            this.board50.Size = new System.Drawing.Size(75, 66);
+            this.board50.Size = new System.Drawing.Size(56, 54);
             this.board50.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board50.TabIndex = 42;
             this.board50.TabStop = false;
@@ -724,10 +729,10 @@
             // board47
             // 
             this.board47.BackColor = System.Drawing.SystemColors.Window;
-            this.board47.Location = new System.Drawing.Point(579, 300);
-            this.board47.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board47.Location = new System.Drawing.Point(434, 244);
+            this.board47.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board47.Name = "board47";
-            this.board47.Size = new System.Drawing.Size(75, 66);
+            this.board47.Size = new System.Drawing.Size(56, 54);
             this.board47.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board47.TabIndex = 41;
             this.board47.TabStop = false;
@@ -736,10 +741,10 @@
             // board46
             // 
             this.board46.BackColor = System.Drawing.SystemColors.Window;
-            this.board46.Location = new System.Drawing.Point(499, 300);
-            this.board46.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board46.Location = new System.Drawing.Point(374, 244);
+            this.board46.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board46.Name = "board46";
-            this.board46.Size = new System.Drawing.Size(75, 66);
+            this.board46.Size = new System.Drawing.Size(56, 54);
             this.board46.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board46.TabIndex = 40;
             this.board46.TabStop = false;
@@ -748,10 +753,10 @@
             // board45
             // 
             this.board45.BackColor = System.Drawing.SystemColors.Window;
-            this.board45.Location = new System.Drawing.Point(417, 300);
-            this.board45.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board45.Location = new System.Drawing.Point(313, 244);
+            this.board45.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board45.Name = "board45";
-            this.board45.Size = new System.Drawing.Size(75, 66);
+            this.board45.Size = new System.Drawing.Size(56, 54);
             this.board45.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board45.TabIndex = 39;
             this.board45.TabStop = false;
@@ -760,10 +765,10 @@
             // board44
             // 
             this.board44.BackColor = System.Drawing.SystemColors.Window;
-            this.board44.Location = new System.Drawing.Point(336, 300);
-            this.board44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board44.Location = new System.Drawing.Point(252, 244);
+            this.board44.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board44.Name = "board44";
-            this.board44.Size = new System.Drawing.Size(75, 66);
+            this.board44.Size = new System.Drawing.Size(56, 54);
             this.board44.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board44.TabIndex = 38;
             this.board44.TabStop = false;
@@ -772,10 +777,10 @@
             // board43
             // 
             this.board43.BackColor = System.Drawing.SystemColors.Window;
-            this.board43.Location = new System.Drawing.Point(255, 300);
-            this.board43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board43.Location = new System.Drawing.Point(191, 244);
+            this.board43.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board43.Name = "board43";
-            this.board43.Size = new System.Drawing.Size(75, 66);
+            this.board43.Size = new System.Drawing.Size(56, 54);
             this.board43.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board43.TabIndex = 37;
             this.board43.TabStop = false;
@@ -784,10 +789,10 @@
             // board42
             // 
             this.board42.BackColor = System.Drawing.SystemColors.Window;
-            this.board42.Location = new System.Drawing.Point(173, 300);
-            this.board42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board42.Location = new System.Drawing.Point(130, 244);
+            this.board42.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board42.Name = "board42";
-            this.board42.Size = new System.Drawing.Size(75, 66);
+            this.board42.Size = new System.Drawing.Size(56, 54);
             this.board42.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board42.TabIndex = 36;
             this.board42.TabStop = false;
@@ -796,10 +801,10 @@
             // board41
             // 
             this.board41.BackColor = System.Drawing.SystemColors.Window;
-            this.board41.Location = new System.Drawing.Point(93, 300);
-            this.board41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board41.Location = new System.Drawing.Point(70, 244);
+            this.board41.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board41.Name = "board41";
-            this.board41.Size = new System.Drawing.Size(75, 66);
+            this.board41.Size = new System.Drawing.Size(56, 54);
             this.board41.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board41.TabIndex = 35;
             this.board41.TabStop = false;
@@ -808,10 +813,10 @@
             // board40
             // 
             this.board40.BackColor = System.Drawing.SystemColors.Window;
-            this.board40.Location = new System.Drawing.Point(12, 300);
-            this.board40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board40.Location = new System.Drawing.Point(9, 244);
+            this.board40.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board40.Name = "board40";
-            this.board40.Size = new System.Drawing.Size(75, 66);
+            this.board40.Size = new System.Drawing.Size(56, 54);
             this.board40.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board40.TabIndex = 34;
             this.board40.TabStop = false;
@@ -820,10 +825,10 @@
             // board37
             // 
             this.board37.BackColor = System.Drawing.SystemColors.Window;
-            this.board37.Location = new System.Drawing.Point(579, 227);
-            this.board37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board37.Location = new System.Drawing.Point(434, 184);
+            this.board37.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board37.Name = "board37";
-            this.board37.Size = new System.Drawing.Size(75, 66);
+            this.board37.Size = new System.Drawing.Size(56, 54);
             this.board37.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board37.TabIndex = 33;
             this.board37.TabStop = false;
@@ -832,10 +837,10 @@
             // board36
             // 
             this.board36.BackColor = System.Drawing.SystemColors.Window;
-            this.board36.Location = new System.Drawing.Point(499, 227);
-            this.board36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board36.Location = new System.Drawing.Point(374, 184);
+            this.board36.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board36.Name = "board36";
-            this.board36.Size = new System.Drawing.Size(75, 66);
+            this.board36.Size = new System.Drawing.Size(56, 54);
             this.board36.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board36.TabIndex = 32;
             this.board36.TabStop = false;
@@ -844,10 +849,10 @@
             // board35
             // 
             this.board35.BackColor = System.Drawing.SystemColors.Window;
-            this.board35.Location = new System.Drawing.Point(417, 228);
-            this.board35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board35.Location = new System.Drawing.Point(313, 185);
+            this.board35.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board35.Name = "board35";
-            this.board35.Size = new System.Drawing.Size(75, 66);
+            this.board35.Size = new System.Drawing.Size(56, 54);
             this.board35.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board35.TabIndex = 31;
             this.board35.TabStop = false;
@@ -856,10 +861,10 @@
             // board34
             // 
             this.board34.BackColor = System.Drawing.SystemColors.Window;
-            this.board34.Location = new System.Drawing.Point(336, 227);
-            this.board34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board34.Location = new System.Drawing.Point(252, 184);
+            this.board34.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board34.Name = "board34";
-            this.board34.Size = new System.Drawing.Size(75, 66);
+            this.board34.Size = new System.Drawing.Size(56, 54);
             this.board34.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board34.TabIndex = 30;
             this.board34.TabStop = false;
@@ -868,10 +873,10 @@
             // board33
             // 
             this.board33.BackColor = System.Drawing.SystemColors.Window;
-            this.board33.Location = new System.Drawing.Point(255, 228);
-            this.board33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board33.Location = new System.Drawing.Point(191, 185);
+            this.board33.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board33.Name = "board33";
-            this.board33.Size = new System.Drawing.Size(75, 66);
+            this.board33.Size = new System.Drawing.Size(56, 54);
             this.board33.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board33.TabIndex = 29;
             this.board33.TabStop = false;
@@ -880,10 +885,10 @@
             // board32
             // 
             this.board32.BackColor = System.Drawing.SystemColors.Window;
-            this.board32.Location = new System.Drawing.Point(173, 228);
-            this.board32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board32.Location = new System.Drawing.Point(130, 185);
+            this.board32.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board32.Name = "board32";
-            this.board32.Size = new System.Drawing.Size(75, 66);
+            this.board32.Size = new System.Drawing.Size(56, 54);
             this.board32.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board32.TabIndex = 28;
             this.board32.TabStop = false;
@@ -892,10 +897,10 @@
             // board31
             // 
             this.board31.BackColor = System.Drawing.SystemColors.Window;
-            this.board31.Location = new System.Drawing.Point(93, 228);
-            this.board31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board31.Location = new System.Drawing.Point(70, 185);
+            this.board31.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board31.Name = "board31";
-            this.board31.Size = new System.Drawing.Size(75, 66);
+            this.board31.Size = new System.Drawing.Size(56, 54);
             this.board31.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board31.TabIndex = 27;
             this.board31.TabStop = false;
@@ -904,10 +909,10 @@
             // board30
             // 
             this.board30.BackColor = System.Drawing.SystemColors.Window;
-            this.board30.Location = new System.Drawing.Point(12, 228);
-            this.board30.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board30.Location = new System.Drawing.Point(9, 185);
+            this.board30.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board30.Name = "board30";
-            this.board30.Size = new System.Drawing.Size(75, 66);
+            this.board30.Size = new System.Drawing.Size(56, 54);
             this.board30.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board30.TabIndex = 26;
             this.board30.TabStop = false;
@@ -916,10 +921,10 @@
             // board27
             // 
             this.board27.BackColor = System.Drawing.SystemColors.Window;
-            this.board27.Location = new System.Drawing.Point(579, 156);
-            this.board27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board27.Location = new System.Drawing.Point(434, 127);
+            this.board27.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board27.Name = "board27";
-            this.board27.Size = new System.Drawing.Size(75, 66);
+            this.board27.Size = new System.Drawing.Size(56, 54);
             this.board27.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board27.TabIndex = 25;
             this.board27.TabStop = false;
@@ -928,10 +933,10 @@
             // board26
             // 
             this.board26.BackColor = System.Drawing.SystemColors.Window;
-            this.board26.Location = new System.Drawing.Point(499, 156);
-            this.board26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board26.Location = new System.Drawing.Point(374, 127);
+            this.board26.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board26.Name = "board26";
-            this.board26.Size = new System.Drawing.Size(75, 66);
+            this.board26.Size = new System.Drawing.Size(56, 54);
             this.board26.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board26.TabIndex = 24;
             this.board26.TabStop = false;
@@ -940,10 +945,10 @@
             // board25
             // 
             this.board25.BackColor = System.Drawing.SystemColors.Window;
-            this.board25.Location = new System.Drawing.Point(417, 156);
-            this.board25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board25.Location = new System.Drawing.Point(313, 127);
+            this.board25.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board25.Name = "board25";
-            this.board25.Size = new System.Drawing.Size(75, 66);
+            this.board25.Size = new System.Drawing.Size(56, 54);
             this.board25.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board25.TabIndex = 23;
             this.board25.TabStop = false;
@@ -952,10 +957,10 @@
             // board24
             // 
             this.board24.BackColor = System.Drawing.SystemColors.Window;
-            this.board24.Location = new System.Drawing.Point(336, 156);
-            this.board24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board24.Location = new System.Drawing.Point(252, 127);
+            this.board24.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board24.Name = "board24";
-            this.board24.Size = new System.Drawing.Size(75, 66);
+            this.board24.Size = new System.Drawing.Size(56, 54);
             this.board24.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board24.TabIndex = 22;
             this.board24.TabStop = false;
@@ -964,10 +969,10 @@
             // board23
             // 
             this.board23.BackColor = System.Drawing.SystemColors.Window;
-            this.board23.Location = new System.Drawing.Point(255, 156);
-            this.board23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board23.Location = new System.Drawing.Point(191, 127);
+            this.board23.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board23.Name = "board23";
-            this.board23.Size = new System.Drawing.Size(75, 66);
+            this.board23.Size = new System.Drawing.Size(56, 54);
             this.board23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board23.TabIndex = 21;
             this.board23.TabStop = false;
@@ -976,10 +981,10 @@
             // board22
             // 
             this.board22.BackColor = System.Drawing.SystemColors.Window;
-            this.board22.Location = new System.Drawing.Point(173, 156);
-            this.board22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board22.Location = new System.Drawing.Point(130, 127);
+            this.board22.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board22.Name = "board22";
-            this.board22.Size = new System.Drawing.Size(75, 66);
+            this.board22.Size = new System.Drawing.Size(56, 54);
             this.board22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board22.TabIndex = 20;
             this.board22.TabStop = false;
@@ -988,10 +993,10 @@
             // board21
             // 
             this.board21.BackColor = System.Drawing.SystemColors.Window;
-            this.board21.Location = new System.Drawing.Point(93, 156);
-            this.board21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board21.Location = new System.Drawing.Point(70, 127);
+            this.board21.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board21.Name = "board21";
-            this.board21.Size = new System.Drawing.Size(75, 66);
+            this.board21.Size = new System.Drawing.Size(56, 54);
             this.board21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board21.TabIndex = 19;
             this.board21.TabStop = false;
@@ -1000,10 +1005,10 @@
             // board20
             // 
             this.board20.BackColor = System.Drawing.SystemColors.Window;
-            this.board20.Location = new System.Drawing.Point(12, 156);
-            this.board20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board20.Location = new System.Drawing.Point(9, 127);
+            this.board20.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board20.Name = "board20";
-            this.board20.Size = new System.Drawing.Size(75, 66);
+            this.board20.Size = new System.Drawing.Size(56, 54);
             this.board20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board20.TabIndex = 18;
             this.board20.TabStop = false;
@@ -1012,10 +1017,10 @@
             // board17
             // 
             this.board17.BackColor = System.Drawing.SystemColors.Window;
-            this.board17.Location = new System.Drawing.Point(579, 83);
-            this.board17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board17.Location = new System.Drawing.Point(434, 67);
+            this.board17.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board17.Name = "board17";
-            this.board17.Size = new System.Drawing.Size(75, 66);
+            this.board17.Size = new System.Drawing.Size(56, 54);
             this.board17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board17.TabIndex = 17;
             this.board17.TabStop = false;
@@ -1024,10 +1029,10 @@
             // board16
             // 
             this.board16.BackColor = System.Drawing.SystemColors.Window;
-            this.board16.Location = new System.Drawing.Point(499, 83);
-            this.board16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board16.Location = new System.Drawing.Point(374, 67);
+            this.board16.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board16.Name = "board16";
-            this.board16.Size = new System.Drawing.Size(75, 66);
+            this.board16.Size = new System.Drawing.Size(56, 54);
             this.board16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board16.TabIndex = 16;
             this.board16.TabStop = false;
@@ -1036,10 +1041,10 @@
             // board15
             // 
             this.board15.BackColor = System.Drawing.SystemColors.Window;
-            this.board15.Location = new System.Drawing.Point(417, 84);
-            this.board15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board15.Location = new System.Drawing.Point(313, 68);
+            this.board15.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board15.Name = "board15";
-            this.board15.Size = new System.Drawing.Size(75, 66);
+            this.board15.Size = new System.Drawing.Size(56, 54);
             this.board15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board15.TabIndex = 15;
             this.board15.TabStop = false;
@@ -1048,10 +1053,10 @@
             // board14
             // 
             this.board14.BackColor = System.Drawing.SystemColors.Window;
-            this.board14.Location = new System.Drawing.Point(336, 83);
-            this.board14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board14.Location = new System.Drawing.Point(252, 67);
+            this.board14.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board14.Name = "board14";
-            this.board14.Size = new System.Drawing.Size(75, 66);
+            this.board14.Size = new System.Drawing.Size(56, 54);
             this.board14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board14.TabIndex = 14;
             this.board14.TabStop = false;
@@ -1060,10 +1065,10 @@
             // board13
             // 
             this.board13.BackColor = System.Drawing.SystemColors.Window;
-            this.board13.Location = new System.Drawing.Point(255, 84);
-            this.board13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board13.Location = new System.Drawing.Point(191, 68);
+            this.board13.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board13.Name = "board13";
-            this.board13.Size = new System.Drawing.Size(75, 66);
+            this.board13.Size = new System.Drawing.Size(56, 54);
             this.board13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board13.TabIndex = 13;
             this.board13.TabStop = false;
@@ -1072,10 +1077,10 @@
             // board12
             // 
             this.board12.BackColor = System.Drawing.SystemColors.Window;
-            this.board12.Location = new System.Drawing.Point(173, 84);
-            this.board12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board12.Location = new System.Drawing.Point(130, 68);
+            this.board12.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board12.Name = "board12";
-            this.board12.Size = new System.Drawing.Size(75, 66);
+            this.board12.Size = new System.Drawing.Size(56, 54);
             this.board12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board12.TabIndex = 12;
             this.board12.TabStop = false;
@@ -1084,10 +1089,10 @@
             // board11
             // 
             this.board11.BackColor = System.Drawing.SystemColors.Window;
-            this.board11.Location = new System.Drawing.Point(93, 84);
-            this.board11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board11.Location = new System.Drawing.Point(70, 68);
+            this.board11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board11.Name = "board11";
-            this.board11.Size = new System.Drawing.Size(75, 66);
+            this.board11.Size = new System.Drawing.Size(56, 54);
             this.board11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board11.TabIndex = 11;
             this.board11.TabStop = false;
@@ -1096,10 +1101,10 @@
             // board10
             // 
             this.board10.BackColor = System.Drawing.SystemColors.Window;
-            this.board10.Location = new System.Drawing.Point(12, 84);
-            this.board10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board10.Location = new System.Drawing.Point(9, 68);
+            this.board10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board10.Name = "board10";
-            this.board10.Size = new System.Drawing.Size(75, 66);
+            this.board10.Size = new System.Drawing.Size(56, 54);
             this.board10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board10.TabIndex = 10;
             this.board10.TabStop = false;
@@ -1108,10 +1113,10 @@
             // board07
             // 
             this.board07.BackColor = System.Drawing.SystemColors.Window;
-            this.board07.Location = new System.Drawing.Point(579, 12);
-            this.board07.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board07.Location = new System.Drawing.Point(434, 10);
+            this.board07.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board07.Name = "board07";
-            this.board07.Size = new System.Drawing.Size(75, 66);
+            this.board07.Size = new System.Drawing.Size(56, 54);
             this.board07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board07.TabIndex = 9;
             this.board07.TabStop = false;
@@ -1120,10 +1125,10 @@
             // board06
             // 
             this.board06.BackColor = System.Drawing.SystemColors.Window;
-            this.board06.Location = new System.Drawing.Point(499, 12);
-            this.board06.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board06.Location = new System.Drawing.Point(374, 10);
+            this.board06.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board06.Name = "board06";
-            this.board06.Size = new System.Drawing.Size(75, 66);
+            this.board06.Size = new System.Drawing.Size(56, 54);
             this.board06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board06.TabIndex = 8;
             this.board06.TabStop = false;
@@ -1132,10 +1137,10 @@
             // board05
             // 
             this.board05.BackColor = System.Drawing.SystemColors.Window;
-            this.board05.Location = new System.Drawing.Point(417, 12);
-            this.board05.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board05.Location = new System.Drawing.Point(313, 10);
+            this.board05.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board05.Name = "board05";
-            this.board05.Size = new System.Drawing.Size(75, 66);
+            this.board05.Size = new System.Drawing.Size(56, 54);
             this.board05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board05.TabIndex = 7;
             this.board05.TabStop = false;
@@ -1144,34 +1149,34 @@
             // board04
             // 
             this.board04.BackColor = System.Drawing.SystemColors.Window;
-            this.board04.Location = new System.Drawing.Point(336, 12);
-            this.board04.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board04.Location = new System.Drawing.Point(252, 10);
+            this.board04.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board04.Name = "board04";
-            this.board04.Size = new System.Drawing.Size(75, 66);
+            this.board04.Size = new System.Drawing.Size(56, 54);
             this.board04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board04.TabIndex = 6;
             this.board04.TabStop = false;
             this.board04.Click += new System.EventHandler(this.pictureBox_Click);
             // 
-            // board3
+            // board03
             // 
-            this.board3.BackColor = System.Drawing.SystemColors.Window;
-            this.board3.Location = new System.Drawing.Point(255, 12);
-            this.board3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.board3.Name = "board3";
-            this.board3.Size = new System.Drawing.Size(75, 66);
-            this.board3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.board3.TabIndex = 5;
-            this.board3.TabStop = false;
-            this.board3.Click += new System.EventHandler(this.pictureBox_Click);
+            this.board03.BackColor = System.Drawing.SystemColors.Window;
+            this.board03.Location = new System.Drawing.Point(191, 10);
+            this.board03.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.board03.Name = "board03";
+            this.board03.Size = new System.Drawing.Size(56, 54);
+            this.board03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.board03.TabIndex = 5;
+            this.board03.TabStop = false;
+            this.board03.Click += new System.EventHandler(this.pictureBox_Click);
             // 
             // board02
             // 
             this.board02.BackColor = System.Drawing.SystemColors.Window;
-            this.board02.Location = new System.Drawing.Point(173, 12);
-            this.board02.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board02.Location = new System.Drawing.Point(130, 10);
+            this.board02.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board02.Name = "board02";
-            this.board02.Size = new System.Drawing.Size(75, 66);
+            this.board02.Size = new System.Drawing.Size(56, 54);
             this.board02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board02.TabIndex = 4;
             this.board02.TabStop = false;
@@ -1180,10 +1185,10 @@
             // board01
             // 
             this.board01.BackColor = System.Drawing.SystemColors.Window;
-            this.board01.Location = new System.Drawing.Point(93, 12);
-            this.board01.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board01.Location = new System.Drawing.Point(70, 10);
+            this.board01.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board01.Name = "board01";
-            this.board01.Size = new System.Drawing.Size(75, 66);
+            this.board01.Size = new System.Drawing.Size(56, 54);
             this.board01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board01.TabIndex = 3;
             this.board01.TabStop = false;
@@ -1192,10 +1197,10 @@
             // board00
             // 
             this.board00.BackColor = System.Drawing.SystemColors.Window;
-            this.board00.Location = new System.Drawing.Point(12, 12);
-            this.board00.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.board00.Location = new System.Drawing.Point(9, 10);
+            this.board00.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.board00.Name = "board00";
-            this.board00.Size = new System.Drawing.Size(75, 66);
+            this.board00.Size = new System.Drawing.Size(56, 54);
             this.board00.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.board00.TabIndex = 2;
             this.board00.TabStop = false;
@@ -1203,10 +1208,9 @@
             // 
             // undoButton
             // 
-            this.undoButton.Location = new System.Drawing.Point(579, 714);
-            this.undoButton.Margin = new System.Windows.Forms.Padding(4);
+            this.undoButton.Location = new System.Drawing.Point(434, 580);
             this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(100, 28);
+            this.undoButton.Size = new System.Drawing.Size(75, 23);
             this.undoButton.TabIndex = 86;
             this.undoButton.Text = "Undo";
             this.undoButton.UseVisualStyleBackColor = true;
@@ -1214,10 +1218,10 @@
             // 
             // Qwirkle
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(729, 754);
+            this.ClientSize = new System.Drawing.Size(547, 613);
             this.Controls.Add(this.undoButton);
             this.Controls.Add(this.AIScore);
             this.Controls.Add(this.PlayerScore);
@@ -1299,12 +1303,11 @@
             this.Controls.Add(this.board06);
             this.Controls.Add(this.board05);
             this.Controls.Add(this.board04);
-            this.Controls.Add(this.board3);
+            this.Controls.Add(this.board03);
             this.Controls.Add(this.board02);
             this.Controls.Add(this.board01);
             this.Controls.Add(this.board00);
             this.Controls.Add(this.ux_TestBtn);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Qwirkle";
             this.Text = "Qwirkle";
             this.Shown += new System.EventHandler(this.Qwirkle_Shown);
@@ -1382,7 +1385,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.board06)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.board05)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.board04)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.board3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.board03)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.board02)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.board01)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.board00)).EndInit();
@@ -1397,7 +1400,7 @@
         private System.Windows.Forms.PictureBox board00;
         private System.Windows.Forms.PictureBox board01;
         private System.Windows.Forms.PictureBox board02;
-        private System.Windows.Forms.PictureBox board3;
+        private System.Windows.Forms.PictureBox board03;
         private System.Windows.Forms.PictureBox board04;
         private System.Windows.Forms.PictureBox board05;
         private System.Windows.Forms.PictureBox board06;

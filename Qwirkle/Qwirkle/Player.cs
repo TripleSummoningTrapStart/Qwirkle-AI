@@ -21,5 +21,20 @@ namespace Qwirkle
                 Hand[Hand.Length - newBlocks.Length + i] = newBlocks[i];
             }
         }
+        public void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play)
+        {
+            List<Block> HandList = Hand.ToList<Block>();
+            foreach (Tuple<Block, int, int> p in play)
+            {
+                HandList.Remove(p.Item1);
+            }
+            while(HandList.Count < 6)
+            {
+                HandList.Add(null);
+            }
+            Hand = HandList.ToArray();
+        }
+
+        //public virtual List<Tuple<Block, int, int>> DeterminePlay(string[] Plays);
     }
 }

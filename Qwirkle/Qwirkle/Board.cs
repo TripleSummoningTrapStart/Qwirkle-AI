@@ -43,5 +43,13 @@ namespace Qwirkle
             _blockBag.RemoveAt(r);
             return newBlock;
         }
+
+        public void updateBoard(List<Tuple<Block, int, int>> play)
+        {
+            foreach(Tuple<Block, int, int> p in play)
+            {
+                GameArea[p.Item2, p.Item3] = p.Item1;
+            }
+        }
     }
 }

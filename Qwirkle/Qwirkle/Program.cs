@@ -19,10 +19,12 @@ namespace Qwirkle
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            StartForm s = new StartForm();
+            Application.Run(s);
             List<UpdateDelegate> l = new List<UpdateDelegate>();
             PrologCommunicator prolog = new PrologCommunicator();
-            Controller c = new Controller(l);
-            Qwirkle form = new Qwirkle(c.MakePlay, c, prolog);
+            Controller c = new Controller(l, prolog, s.Difficulty);
+            Qwirkle form = new Qwirkle(c.MakePlay, c);
             l.Add(form.UpdateForm);
             Application.Run(form);
         }

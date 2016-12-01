@@ -13,18 +13,18 @@ namespace Qwirkle
     public partial class Qwirkle : Form
     {
 
-        private PrologCommunicator _prolog;
+       
         private Controller _controller;
         private MakePlayDelegate _makePlay;
         private PictureBox _originClicked;
         private Stack<Tuple<PictureBox, PictureBox>> _undoStack;
         private List<Tuple<Block, int, int>> _holdPlay;
-        public Qwirkle(MakePlayDelegate d, Controller c, PrologCommunicator p)
+        public Qwirkle(MakePlayDelegate d, Controller c)
         {
             InitializeComponent();
 
             _controller = c;
-            _prolog = p;
+          
             _makePlay = d;
             _undoStack = new Stack<Tuple<PictureBox, PictureBox>>();
             _holdPlay = new List<Tuple<Block, int, int>>();

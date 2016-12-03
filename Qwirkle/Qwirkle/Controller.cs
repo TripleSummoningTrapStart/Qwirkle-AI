@@ -38,7 +38,7 @@ namespace Qwirkle
         {
             foreach (UpdateDelegate d in _observer)
             {
-                d(_human.Hand, _human.Score, 0, _board.GameArea, true); //_board.WasExpanded());
+                d(_human.Hand, _human.Score, 0, _board.GameArea);
             }
         }
         private Block[] MakeNewHand()

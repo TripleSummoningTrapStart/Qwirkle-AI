@@ -49,7 +49,7 @@ namespace Qwirkle
             _holdPlay.Clear();
 
         }
-        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board, bool expanded)
+        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board)
         {
             Playerhand1.Image = playerHand[0].Image;
             Playerhand2.Image = playerHand[1].Image;
@@ -84,13 +84,19 @@ namespace Qwirkle
             }
             else if (_originClicked != null)
             {
-                if (_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("hand"))
+                if(_originClicked.Name.Contains("hand") && destinationClicked.Name.Contains("hand"))
+                {
+                    object tagHold = _originClicked.Tag;
+                    _originClicked.Tag = destinationClicked.Tag;
+                    destinationClicked.Tag = tagHold;
+                }
+                if ((_originClicked.Name.Contains("board") || _originClicked.Name.Contains("picture")) && destinationClicked.Name.Contains("hand"))
                 {
                     PictureBox hold = _originClicked;
                     _originClicked = destinationClicked;
                     destinationClicked = hold;
                 }
-                if (_originClicked != null && _originClicked != destinationClicked && !(_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("board")) && (destinationClicked.Image == null || destinationClicked.Name.Contains("hand")))
+                if (_originClicked != null && _originClicked != destinationClicked && !((_originClicked.Name.Contains("board") || _originClicked.Name.Contains("picture")) && (destinationClicked.Name.Contains("board") || destinationClicked.Name.Contains("picture"))) && (destinationClicked.Image == null || destinationClicked.Name.Contains("hand")))
                 {
                     Image hold = _originClicked.Image;
                     _originClicked.Image = destinationClicked.Image;
@@ -105,11 +111,12 @@ namespace Qwirkle
 
 
                     _undoStack.Push(new Tuple<PictureBox, PictureBox>(_originClicked, destinationClicked));
-                    if (_originClicked.Name.Contains("hand") && destinationClicked.Name.Contains("board"))
+                    if (_originClicked.Name.Contains("hand") && (destinationClicked.Name.Contains("board") || destinationClicked.Name.Contains("picture")))
                     {
-                        string playLocation = destinationClicked.Name.Substring(destinationClicked.Name.Length - 2);
-                        int playLocationY = Convert.ToInt32(playLocation.Substring(0, 1));
-                        int playLocationX = Convert.ToInt32(playLocation.Substring(1));
+                        string location = (string)destinationClicked.Tag;
+                        string[] locationCoord = location.Split(',');
+                        int playLocationY = Convert.ToInt32(locationCoord[0]);
+                        int playLocationX = Convert.ToInt32(locationCoord[1]);
                         _holdPlay.Add(new Tuple<Block, int, int>((Block)_originClicked.Tag, playLocationY, playLocationX));
                     }
                     _originClicked = null;

@@ -17,7 +17,7 @@ namespace Qwirkle
         private bool _expanded;
         public Board()
         {
-            GameArea = new Block[9, 9];
+            GameArea = new Block[15, 30];
             _blockBag = MakeBlockBag();
             _expanded = false;
         }
@@ -58,7 +58,7 @@ namespace Qwirkle
             int score = 0;
             int xCheck = xOrigin - xDirection;
             int yCheck = yOrigin - yDirection;
-            while ((yCheck >= 0 && xCheck >= 0) && (yCheck < GameArea.GetLength(1) && xCheck < GameArea.GetLength(1)) && GameArea[yCheck, xCheck] != null)
+            while ((yCheck >= 0 && xCheck >= 0) && (yCheck < GameArea.GetLength(0) && xCheck < GameArea.GetLength(1)) && GameArea[yCheck, xCheck] != null)
             {
                 
                 Block check = GameArea[yCheck, xCheck];
@@ -84,7 +84,7 @@ namespace Qwirkle
             for(int i = 0; i < GameArea.GetLength(0); i++)
             {
                 StringBuilder hold = new StringBuilder("[");
-                for(int k = 0; k < GameArea.GetLength(0); k++)
+                for(int k = 0; k < GameArea.GetLength(1); k++)
                 {
                     if(GameArea[i,k] != null)
                     {

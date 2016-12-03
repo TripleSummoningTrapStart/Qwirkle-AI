@@ -38,7 +38,7 @@ namespace Qwirkle
         {
             foreach (UpdateDelegate d in _observer)
             {
-                d(_human.Hand, _human.Score, 0, _board.GameArea);
+                d(_human.Hand, _human.Score, 0, _board.GameArea, true); //_board.WasExpanded());
             }
         }
         private Block[] MakeNewHand()
@@ -75,14 +75,34 @@ namespace Qwirkle
                     for (int i = 0; i < play.Count; i++)
                     {
                         Tuple<Block, int, int> currentPlay = play[i];
-                        humanScore += ScorePlay(play, 1, 0, currentPlay); //up
-                        humanScore += ScorePlay(play, -1, 0, currentPlay);  //down
+                        int holdScore = 0;
+                        holdScore += ScorePlay(play, 1, 0, currentPlay); //up
+                        holdScore += ScorePlay(play, -1, 0, currentPlay);  //down
+                        if (holdScore > 0)
+                        {
+                            holdScore += 1; // current piece;
+                        }
+                        if (holdScore == 6)
+                        {
+                            holdScore += 6;
+                        }
+                        humanScore += holdScore;
                     }
                     for (int i = 0; i < playList2.Count; i++)
                     {
                         Tuple<Block, int, int> currentPlay = playList2[i];
-                        humanScore += ScorePlay(playList2, 0, 1, currentPlay); //left
-                        humanScore += ScorePlay(playList2, 0, -1, currentPlay); //right
+                        int holdScore = 0;
+                        holdScore += ScorePlay(playList2, 0, 1, currentPlay); //left
+                        holdScore += ScorePlay(playList2, 0, -1, currentPlay); //right
+                        if(holdScore > 0)
+                        {
+                            holdScore += 1; // current piece;
+                        }
+                        if (holdScore == 6)
+                        {
+                            holdScore += 6;
+                        }
+                        humanScore += holdScore;
                     }
                     _human.UpdateScore(humanScore);
                     FireObserver();
@@ -94,25 +114,13 @@ namespace Qwirkle
 
         private int ScorePlay(List<Tuple<Block, int, int>> play, int yDirection, int xDirection, Tuple<Block, int, int> currentPlay)
         {
-            int totalCount = 0;
 
-            totalCount += _board.ScorePlay(currentPlay.Item2, currentPlay.Item3, yDirection, xDirection, play);
-
-            if (totalCount >= 1)
-            {
-                totalCount += 1; //for current peice
-            }
-            if (totalCount == 6)
-            {
-                totalCount += 6;
-            }
-
-            return totalCount;
+            return _board.ScorePlay(currentPlay.Item2, currentPlay.Item3, yDirection, xDirection, play); ;
         }
         public void WriteBoard()
         {
             string board = _board.ConvertBoardToStringArray();
-            File.WriteAllText(@"U:\ai\testBoard.txt", "");
+            File.WriteAllText(@"U:\ai\testBoard.txt", board);
         }
     }
 }

@@ -14,10 +14,12 @@ namespace Qwirkle
 
         private List<Block> _blockBag = new List<Block>();
         static Random rnd = new Random();
+        private bool _expanded;
         public Board()
         {
             GameArea = new Block[9, 9];
             _blockBag = MakeBlockBag();
+            _expanded = false;
         }
 
         private List<Block> MakeBlockBag()
@@ -78,24 +80,37 @@ namespace Qwirkle
         public string ConvertBoardToStringArray()
         {
             StringBuilder returnString = new StringBuilder("[");
-            StringBuilder hold = new StringBuilder();
+            
             for(int i = 0; i < GameArea.GetLength(0); i++)
             {
-                hold.Append("[");
-                for(int k = 0; k < GameArea.GetLength(0); i++)
+                StringBuilder hold = new StringBuilder("[");
+                for(int k = 0; k < GameArea.GetLength(0); k++)
                 {
-
+                    if(GameArea[i,k] != null)
+                    {
+                        Block b = GameArea[i, k];
+                        hold.Append(string.Format("play({0},{1}, tile({2},{3}),", i, k, b.Shape, b.Color));
+                    }
                 }
-                hold.Append("]");
+                hold.Remove(hold.Length - 1, 1);
+                hold.Append("],");
                 if(hold.Length > 2)
                 {
-
+                    returnString.Append(hold.ToString());
                 }
-                
             }
-
+            returnString.Remove(returnString.Length - 1, 1);
             returnString.Append("]");
             return returnString.ToString();
+        }
+        public bool WasExpanded()
+        {
+            if(_expanded)
+            {
+                _expanded = false;
+                return true;
+            }
+            return false;
         }
     }
 }

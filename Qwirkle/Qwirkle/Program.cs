@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace Qwirkle
 {
     public delegate bool MakePlayDelegate(List<Tuple<Block, int, int>> play);
-    public delegate void UpdateDelegate(Block[] playerHand, int PlayerScore, int ComputerScore, Block[,] Board);
+    public delegate void UpdateDelegate(Block[] playerHand, int PlayerScore, int ComputerScore, Block[,] Board, bool expanded);
     static class Program
     {
         /// <summary>

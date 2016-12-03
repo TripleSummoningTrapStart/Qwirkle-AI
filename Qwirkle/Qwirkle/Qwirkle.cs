@@ -13,7 +13,7 @@ namespace Qwirkle
     public partial class Qwirkle : Form
     {
 
-       
+
         private Controller _controller;
         private MakePlayDelegate _makePlay;
         private PictureBox _originClicked;
@@ -24,11 +24,11 @@ namespace Qwirkle
             InitializeComponent();
 
             _controller = c;
-          
+
             _makePlay = d;
             _undoStack = new Stack<Tuple<PictureBox, PictureBox>>();
             _holdPlay = new List<Tuple<Block, int, int>>();
-           
+
         }
 
         private void ux_TestBtn_Click(object sender, EventArgs e)
@@ -36,10 +36,10 @@ namespace Qwirkle
             //var res = _prolog.Test();
             //MessageBox.Show(res);
             bool validPlay = _makePlay(_holdPlay);
-            if(validPlay)
+            if (validPlay)
             {
                 _undoStack.Clear();
-              
+
             }
             else
             {
@@ -49,7 +49,7 @@ namespace Qwirkle
             _holdPlay.Clear();
 
         }
-        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board)
+        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board, bool expanded)
         {
             Playerhand1.Image = playerHand[0].Image;
             Playerhand2.Image = playerHand[1].Image;
@@ -65,6 +65,9 @@ namespace Qwirkle
             Playerhand6.Tag = playerHand[5];
 
             PlayerScore.Text = playerScore.ToString();
+            AIScore.Text = computerScore.ToString();
+
+          
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
@@ -79,20 +82,20 @@ namespace Qwirkle
                 Padding p = new Padding(3);
                 _originClicked.Padding = p;
             }
-            else if(_originClicked != null)
+            else if (_originClicked != null)
             {
-                if(_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("hand"))
+                if (_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("hand"))
                 {
                     PictureBox hold = _originClicked;
                     _originClicked = destinationClicked;
                     destinationClicked = hold;
                 }
-                if(_originClicked != null && _originClicked != destinationClicked && !(_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("board")) && (destinationClicked.Image == null || destinationClicked.Name.Contains("hand")))
+                if (_originClicked != null && _originClicked != destinationClicked && !(_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("board")) && (destinationClicked.Image == null || destinationClicked.Name.Contains("hand")))
                 {
                     Image hold = _originClicked.Image;
                     _originClicked.Image = destinationClicked.Image;
                     destinationClicked.Image = hold;
-                    
+
                     //Removes Highlighting
                     _originClicked.BackColor = Color.White;
                     Padding p = new Padding(0);
@@ -126,14 +129,17 @@ namespace Qwirkle
 
         private void undoButton_Click(object sender, EventArgs e)
         {
-            if(_undoStack.Count > 0)
+            if (_undoStack.Count > 0)
             {
                 Tuple<PictureBox, PictureBox> undo = _undoStack.Pop();
                 Image hold = undo.Item1.Image;
                 undo.Item1.Image = undo.Item2.Image;
                 undo.Item2.Image = hold;
             }
-            _holdPlay.RemoveAt(_holdPlay.Count - 1);
+            if (_holdPlay.Count > 0)
+            {
+                _holdPlay.RemoveAt(_holdPlay.Count - 1);
+            }
         }
 
         private void Qwirkle_Shown(object sender, EventArgs e)
@@ -142,7 +148,7 @@ namespace Qwirkle
         }
         private void CompletelyUndo()
         {
-            while(_undoStack.Count > 0)
+            while (_undoStack.Count > 0)
             {
                 Tuple<PictureBox, PictureBox> undo = _undoStack.Pop();
                 Image hold = undo.Item1.Image;

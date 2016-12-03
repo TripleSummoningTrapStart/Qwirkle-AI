@@ -119,6 +119,7 @@ namespace Qwirkle
                 undo.Item1.Image = undo.Item2.Image;
                 undo.Item2.Image = hold;
             }
+            _holdPlay.RemoveAt(_holdPlay.Count - 1);
         }
 
         private void Qwirkle_Shown(object sender, EventArgs e)
@@ -134,6 +135,7 @@ namespace Qwirkle
                 undo.Item1.Image = undo.Item2.Image;
                 undo.Item2.Image = hold;
             }
+            _holdPlay.Clear();
         }
     }
 }

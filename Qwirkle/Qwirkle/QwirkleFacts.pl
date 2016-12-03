@@ -65,44 +65,6 @@ isgapRight(X, Y1, [[play(X + 1, Y2, _) | R1] | R2], Neighbors) :-
 	Y2 < Y1, 
 	isgapRight(X, Y1, [R1 | R2], Neighbors), !.
 isgapRight(X, Y, [[play(X + 1, Y, T) | R1] | R2], [play(X, Y, T)]).
-	
-	
-	
-	
-	
-	
-	
-	
-	
-hasCopy(X, Y, [[play(X, Y, _) | R1] | R2]) :- !.
-hasCopy(X1, Y1, [[play(X2, Y2, _) | R1] | R2]) :-
-	hasCopy(X1, X2, R1).
-	
-hasNeighbor(X, Y, Board, Neighbors) :- 
-	hasTopNeighbor(X, Y, Board, Neighbors),
-	hasLeftNeighbor(X, Y, Board, Neighbors), 
-	hasRightNeighbor(X, Y, Board, Neighbors),
-	hasBottomNeighbor(X, Y, Board, Neighbors).
-	
-hasLeftNeighbor(X, Y, [], []).
-hasLeftNeighbor(X, Y, [play(X - 1, Y, tile(S, C)) | Rest], [play(X - 1, Y, tile(S, C)) | R]) :- !.
-hasLeftNeighbor(X1, Y1, [play(X2, Y2, tile(S, C)) | Rest], R) :-
-	hasLeftNeighbor(X1, Y1, Rest, R).
-	
-hasRightNeighbor(X, Y, [], []).
-hasRightNeighbor(X, Y, [play(X + 1, Y, tile(S, C)) | Rest], [play(X + 1, Y, tile(S, C)) | R]) :- !.
-hasRightNeighbor(X1, Y1, [play(X2, Y2, tile(S, C)) | Rest], R) :-
-	hasRightNeighbor(X1, Y1, Rest, R).
-	
-hasBottomNeighbor(X, Y, [], []).
-hasBottomNeighbor(X, Y, [play(X, Y - 1, tile(S, C)) | Rest], [play(X, Y - 1, tile(S, C)) | R]) :- !.
-hasBottomNeighbor(X1, Y1, [play(X2, Y2, tile(S, C)) | Rest], R) :-
-	hasBottomNeighbor(X1, Y1, Rest, R).
-	
-hasTopNeighbor(X, Y, [], []).
-hasTopNeighbor(X, Y, [play(X, Y + 1, tile(S, C)) | Rest], [play(X, Y + 1, tile(S, C)) | R]) :- !.
-hasTopNeighbor(X1, Y1, [play(X2, Y2, tile(S, C)) | Rest], R) :-
-	hasTopNeighbor(X, Y, Rest, R).
 
 /* Is Legal */ 
 isLegal(T) :- isSingleColor(T), isLegalShape(T).

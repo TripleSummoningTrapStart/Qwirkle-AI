@@ -13,7 +13,7 @@ namespace Qwirkle
         {
 
         }
-
+        //[play({0},{1},Tile({3},{4}),....
         public string Test()
         {
             StringBuilder sb = new StringBuilder();

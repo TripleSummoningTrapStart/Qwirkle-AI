@@ -75,5 +75,27 @@ namespace Qwirkle
             }
             return score;
         }
+        public string ConvertBoardToStringArray()
+        {
+            StringBuilder returnString = new StringBuilder("[");
+            StringBuilder hold = new StringBuilder();
+            for(int i = 0; i < GameArea.GetLength(0); i++)
+            {
+                hold.Append("[");
+                for(int k = 0; k < GameArea.GetLength(0); i++)
+                {
+
+                }
+                hold.Append("]");
+                if(hold.Length > 2)
+                {
+
+                }
+                
+            }
+
+            returnString.Append("]");
+            return returnString.ToString();
+        }
     }
 }

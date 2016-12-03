@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Qwirkle
 {
@@ -107,6 +108,11 @@ namespace Qwirkle
             }
 
             return totalCount;
+        }
+        public void WriteBoard()
+        {
+            string board = _board.ConvertBoardToStringArray();
+            File.WriteAllText(@"U:\ai\testBoard.txt", "");
         }
     }
 }

@@ -73,7 +73,11 @@ namespace Qwirkle
             if (_originClicked == null && (destinationClicked.Name.Contains("hand") || destinationClicked.Image == null))
             {
                 _originClicked = destinationClicked;
-                _originClicked.BorderStyle = BorderStyle.Fixed3D;
+                //Highlights clicked object
+                //_originClicked.BorderStyle = BorderStyle.Fixed3D;
+                _originClicked.BackColor = Color.Yellow;
+                Padding p = new Padding(3);
+                _originClicked.Padding = p;
             }
             else if(_originClicked != null)
             {
@@ -88,8 +92,15 @@ namespace Qwirkle
                     Image hold = _originClicked.Image;
                     _originClicked.Image = destinationClicked.Image;
                     destinationClicked.Image = hold;
-                    _originClicked.BorderStyle = BorderStyle.None;
-                    destinationClicked.BorderStyle = BorderStyle.None;
+                    
+                    //Removes Highlighting
+                    _originClicked.BackColor = Color.White;
+                    Padding p = new Padding(0);
+                    _originClicked.Padding = p;
+                    destinationClicked.BackColor = Color.White;
+                    destinationClicked.Padding = p;
+
+
                     _undoStack.Push(new Tuple<PictureBox, PictureBox>(_originClicked, destinationClicked));
                     if (_originClicked.Name.Contains("hand") && destinationClicked.Name.Contains("board"))
                     {
@@ -102,8 +113,11 @@ namespace Qwirkle
                 }
                 else
                 {
-                    _originClicked.BorderStyle = BorderStyle.None;
-                    destinationClicked.BorderStyle = BorderStyle.None;
+                    _originClicked.BackColor = Color.White;
+                    Padding p = new Padding(0);
+                    _originClicked.Padding = p;
+                    destinationClicked.BackColor = Color.White;
+                    destinationClicked.Padding = p;
                     _originClicked = null;
                 }
             }
@@ -136,6 +150,11 @@ namespace Qwirkle
                 undo.Item2.Image = hold;
             }
             _holdPlay.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _controller.WriteBoard();
         }
     }
 }

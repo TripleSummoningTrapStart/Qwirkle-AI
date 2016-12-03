@@ -51,12 +51,11 @@ namespace Qwirkle
                 GameArea[p.Item2, p.Item3] = p.Item1;
             }
         }
-        public int ScorePlay(Tuple<Block, int, int> checkBlock, int xDirection, int yDirection, List<Tuple<Block, int, int>> play, out int count)
+        public int ScorePlay(int yOrigin, int xOrigin, int yDirection, int xDirection, List<Tuple<Block, int, int>> play)
         {
             int score = 0;
-            count = 0;
-            int xCheck = checkBlock.Item3 - xDirection;
-            int yCheck = checkBlock.Item2 - yDirection;
+            int xCheck = xOrigin - xDirection;
+            int yCheck = yOrigin - yDirection;
             while ((yCheck >= 0 && xCheck >= 0) && (yCheck < GameArea.GetLength(1) && xCheck < GameArea.GetLength(1)) && GameArea[yCheck, xCheck] != null)
             {
                 
@@ -70,7 +69,6 @@ namespace Qwirkle
                 }
 
                 score += 1;
-                count += 1;
                 xCheck -= xDirection;
                 yCheck -= yDirection;
 

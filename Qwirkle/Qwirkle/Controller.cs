@@ -70,42 +70,18 @@ namespace Qwirkle
                     _human.FillHand(fillhand);
                     _board.updateBoard(play);
                     int humanScore = 0;
-                    int totalCount = 1;
-                    int count;
                     List<Tuple<Block, int, int>> playList2 = play.ToList();
                     for (int i = 0; i < play.Count; i++)
                     {
-
-                        totalCount = 1;
-                        humanScore += _board.ScorePlay(play[i], 0, 1, play, out count); //up
-                        totalCount += count;
-                        humanScore += _board.ScorePlay(play[i], 0, -1, play, out count); //down
-                        totalCount += count;
-                        if (totalCount > 1)
-                        {
-                            humanScore += 1; //for current peice
-                        }
-                        if (totalCount == 6)
-                        {
-                            humanScore += 6;
-                        }
+                        Tuple<Block, int, int> currentPlay = play[i];
+                        humanScore += ScorePlay(play, 1, 0, currentPlay); //up
+                        humanScore += ScorePlay(play, -1, 0, currentPlay);  //down
                     }
                     for (int i = 0; i < playList2.Count; i++)
                     {
-                        totalCount = 1;
-                        humanScore += _board.ScorePlay(playList2[i], 1, 0, playList2, out count); // left
-                        totalCount += count;
-                        humanScore += _board.ScorePlay(playList2[i], -1, 0, playList2, out count); //right
-                        totalCount += count;
-                        if(totalCount > 1)
-                        {
-                            humanScore += 1; //for current peice
-                        }
-                        if (totalCount == 6)
-                        {
-                            humanScore += 6;
-                        }
-
+                        Tuple<Block, int, int> currentPlay = playList2[i];
+                        humanScore += ScorePlay(playList2, 0, 1, currentPlay); //left
+                        humanScore += ScorePlay(playList2, 0, -1, currentPlay); //right
                     }
                     _human.UpdateScore(humanScore);
                     FireObserver();
@@ -115,9 +91,22 @@ namespace Qwirkle
             return false;
         }
 
-        private int ScorePlay(List<Tuple<Block, int, int>> play, int yDirection, int xDirection)
+        private int ScorePlay(List<Tuple<Block, int, int>> play, int yDirection, int xDirection, Tuple<Block, int, int> currentPlay)
         {
-            return 0;
+            int totalCount = 0;
+
+            totalCount += _board.ScorePlay(currentPlay.Item2, currentPlay.Item3, yDirection, xDirection, play);
+
+            if (totalCount >= 1)
+            {
+                totalCount += 1; //for current peice
+            }
+            if (totalCount == 6)
+            {
+                totalCount += 6;
+            }
+
+            return totalCount;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Qwirkle
         public Qwirkle(MakePlayDelegate d, Controller c)
         {
             InitializeComponent();
-
+            RenamePictureBox();
             _controller = c;
 
             _makePlay = d;
@@ -49,7 +49,7 @@ namespace Qwirkle
             _holdPlay.Clear();
 
         }
-        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board)
+        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board, List<Tuple<Block, int, int>> AIPlay)
         {
             Playerhand1.Image = playerHand[0].Image;
             Playerhand2.Image = playerHand[1].Image;
@@ -66,8 +66,9 @@ namespace Qwirkle
 
             PlayerScore.Text = playerScore.ToString();
             AIScore.Text = computerScore.ToString();
+            //Controls.OfType<PictureBox>().fi
+            //http://stackoverflow.com/questions/19775851/ability-to-find-winform-control-via-the-tag-property
 
-          
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
@@ -90,13 +91,13 @@ namespace Qwirkle
                     _originClicked.Tag = destinationClicked.Tag;
                     destinationClicked.Tag = tagHold;
                 }
-                if ((_originClicked.Name.Contains("board") || _originClicked.Name.Contains("picture")) && destinationClicked.Name.Contains("hand"))
+                if (_originClicked.Name.Contains("board") && destinationClicked.Name.Contains("hand"))
                 {
                     PictureBox hold = _originClicked;
                     _originClicked = destinationClicked;
                     destinationClicked = hold;
                 }
-                if (_originClicked != null && _originClicked != destinationClicked && !((_originClicked.Name.Contains("board") || _originClicked.Name.Contains("picture")) && (destinationClicked.Name.Contains("board") || destinationClicked.Name.Contains("picture"))) && (destinationClicked.Image == null || destinationClicked.Name.Contains("hand")))
+                if (_originClicked != null && _originClicked != destinationClicked && !(_originClicked.Name.Contains("board")  && destinationClicked.Name.Contains("board")) && (destinationClicked.Image == null || destinationClicked.Name.Contains("hand")))
                 {
                     Image hold = _originClicked.Image;
                     _originClicked.Image = destinationClicked.Image;
@@ -111,7 +112,7 @@ namespace Qwirkle
 
 
                     _undoStack.Push(new Tuple<PictureBox, PictureBox>(_originClicked, destinationClicked));
-                    if (_originClicked.Name.Contains("hand") && (destinationClicked.Name.Contains("board") || destinationClicked.Name.Contains("picture")))
+                    if (_originClicked.Name.Contains("hand") && destinationClicked.Name.Contains("board"))
                     {
                         string location = (string)destinationClicked.Tag;
                         string[] locationCoord = location.Split(',');
@@ -168,6 +169,24 @@ namespace Qwirkle
         private void button1_Click(object sender, EventArgs e)
         {
             _controller.WriteBoard();
+        }
+
+        private void RenamePictureBox()
+        {
+            int count = 0;
+            foreach(PictureBox p in Controls.OfType<PictureBox>())
+            {
+                if(p.Name.Contains("hand"))
+                {
+                    continue;
+                }
+                else
+                {
+                    p.Name = "board" + count;
+                    count++;
+                }
+
+            }
         }
     }
 }

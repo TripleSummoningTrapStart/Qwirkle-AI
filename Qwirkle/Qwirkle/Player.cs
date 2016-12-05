@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Qwirkle
 {
-    public class Player
+    public abstract class Player
     {
-        public Block[] Hand { get; private set; }
-        public int Score { get; private set; }
+        public abstract Block[] Hand { get; protected set; }
+        public abstract int Score { get; protected set; }
         public Player(Block[] startHand)
         {
             Hand = startHand;
@@ -21,23 +21,11 @@ namespace Qwirkle
                 Hand[Hand.Length - newBlocks.Length + i] = newBlocks[i];
             }
         }
-        public void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play)
-        {
-            List<Block> HandList = Hand.ToList<Block>();
-            foreach (Tuple<Block, int, int> p in play)
-            {
-                HandList.Remove(p.Item1);
-            }
-            while(HandList.Count < 6)
-            {
-                HandList.Add(null);
-            }
-            Hand = HandList.ToArray();
-        }
+        public abstract void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play);
         public void UpdateScore(int score)
         {
             this.Score += score;
         }
-        //public virtual List<Tuple<Block, int, int>> DeterminePlay(string[] Plays);
+        public abstract List<Tuple<Block, int, int>> DeterminePlay(string[] Plays);
     }
 }

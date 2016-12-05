@@ -8,11 +8,20 @@ namespace Qwirkle
 {
     public class AIMedium : Player
     {
+
+
+        public override Block[] Hand { get; protected set; }
+        public override int Score { get; protected set; }
+
         public AIMedium(Block[] startHand) : base(startHand)
         {
         }
+        public override List<Tuple<Block, int, int>> DeterminePlay(string[] Plays)
+        {
+            throw new NotImplementedException();
+        }
 
-        public List<Tuple<Block, int, int>> DeterminePlay(string[] Plays)
+        public override void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play)
         {
             throw new NotImplementedException();
         }

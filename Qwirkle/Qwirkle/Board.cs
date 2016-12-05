@@ -58,6 +58,8 @@ namespace Qwirkle
             int score = 0;
             int xCheck = xOrigin - xDirection;
             int yCheck = yOrigin - yDirection;
+            int check3 = GameArea.GetLength(0);
+            int check2 = GameArea.GetLength(1);
             while ((yCheck >= 0 && xCheck >= 0) && (yCheck < GameArea.GetLength(0) && xCheck < GameArea.GetLength(1)) && GameArea[yCheck, xCheck] != null)
             {
                 
@@ -89,7 +91,7 @@ namespace Qwirkle
                     if(GameArea[i,k] != null)
                     {
                         Block b = GameArea[i, k];
-                        hold.Append(string.Format("play({0},{1}, tile({2},{3}),", i, k, b.Shape, b.Color));
+                        hold.Append(string.Format("play(space({0},{1}), tile({2},{3})),", i, k, b.Shape, b.Color));
                     }
                 }
                 hold.Remove(hold.Length - 1, 1);

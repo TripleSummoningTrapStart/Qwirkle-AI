@@ -57,6 +57,7 @@
     <Compile Include="BlockTypes.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Human.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Qwirkle.cs">
       <SubType>Form</SubType>

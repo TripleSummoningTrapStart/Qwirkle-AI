@@ -9,49 +9,88 @@ namespace Qwirkle
 {
     public class PrologCommunicator
     {
+        /// <summary>
+        /// ONLY CALL ONCE PER EXECUTION
+        /// </summary>
         public PrologCommunicator()
         {
-
+            if (!PlEngine.IsInitialized)
+            {
+                String[] param = { "-q", "-f", "QwirkleFacts.pl" }; // suppressing informational and banner messages
+                PlEngine.Initialize(param);
+            }
         }
-        //[play({0},{1},Tile({3},{4}),....
+
+        public bool TestMove(string move)
+        {
+
+            return false;
+        }
+
+        public string GetMoves(string board, string hand)
+        {
+
+            return null;
+        }
+
         public string Test()
         {
             StringBuilder sb = new StringBuilder();
-            //Environment.SetEnvironmentVariable("SWI_HOME_DIR", "C:\\Program Files (x86)\\swipl\\bin");
-            if (!PlEngine.IsInitialized)
+            string qString = "b1(B), isgapLeft(7, 4, B, N)";
+            using (PlQuery q = new PlQuery(qString))
             {
-                String[] param = { "-q" };  // suppressing informational and banner messages
-                PlEngine.Initialize(param);
-                PlQuery.PlCall("assert(father(martin, inka))");
-                PlQuery.PlCall("assert(father(uwe, gloria))");
-                PlQuery.PlCall("assert(father(uwe, melanie))");
-                PlQuery.PlCall("assert(father(uwe, ayala))");
-                using (var q = new PlQuery("father(P, C), atomic_list_concat([P,' is_father_of ',C], L)"))
+                foreach (PlQueryVariables v in q.SolutionVariables)
                 {
-                    foreach (PlQueryVariables v in q.SolutionVariables)
-                    {
-                        //Console.WriteLine(v["L"].ToString());
-                        sb.Append(v["L"].ToString() + "\n");
-                    }
-
-                    //Console.WriteLine("all children from uwe:");
-                    sb.Append("all children from uwe:\n");
-                    q.Variables["P"].Unify("uwe");
-                    foreach (PlQueryVariables v in q.SolutionVariables)
-                    {
-                        //Console.WriteLine(v["C"].ToString());
-                        sb.Append(v["C"].ToString() + "\n");
-                    }
+                    sb.Append(v["N"]);
                 }
-                PlEngine.PlCleanup();
-                //Console.WriteLine("finshed!");
-                sb.Append("finished!\n");
-            }
-            else
-            {
-                sb.Append("...\n");
             }
             return sb.ToString();
+        }
+
+        //[play({0},{1},Tile({3},{4}),....
+        //public string Test()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    //Environment.SetEnvironmentVariable("SWI_HOME_DIR", "C:\\Program Files (x86)\\swipl\\bin");
+        //    //if (!PlEngine.IsInitialized)
+        //    //{
+        //    String[] param = { "-q" };  // suppressing informational and banner messages
+        //    PlEngine.Initialize(param);
+        //    PlQuery.PlCall("assert(father(martin, inka))");
+        //    PlQuery.PlCall("assert(father(uwe, gloria))");
+        //    PlQuery.PlCall("assert(father(uwe, melanie))");
+        //    PlQuery.PlCall("assert(father(uwe, ayala))");
+        //    using (var q = new PlQuery("father(P, C), atomic_list_concat([P,' is_father_of ',C], L)"))
+        //    {
+        //        foreach (PlQueryVariables v in q.SolutionVariables)
+        //        {
+        //            //Console.WriteLine(v["L"].ToString());
+        //            sb.Append(v["L"].ToString() + "\n");
+        //        }
+
+        //        //Console.WriteLine("all children from uwe:");
+        //        sb.Append("all children from uwe:\n");
+        //        q.Variables["P"].Unify("uwe");
+        //        foreach (PlQueryVariables v in q.SolutionVariables)
+        //        {
+        //            //Console.WriteLine(v["C"].ToString());
+        //            sb.Append(v["C"].ToString() + "\n");
+        //        }
+        //    }
+        //    //PlEngine.PlCleanup();
+        //    //Console.WriteLine("finshed!");
+        //    sb.Append("finished!\n");
+        //    //}
+        //    //else
+        //    //{
+        //    //    sb.Append("...\n");
+        //    //}
+        //    return sb.ToString();
+        //}
+
+        public void Cleanup()
+        {
+            PlEngine.PlCleanup();
         }
     }
 }

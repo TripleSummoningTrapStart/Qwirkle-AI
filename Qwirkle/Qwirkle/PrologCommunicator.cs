@@ -17,7 +17,7 @@ namespace Qwirkle
             if (!PlEngine.IsInitialized)
             {
                 String[] param = { "-q", "-f", "QwirkleFacts.pl" }; // suppressing informational and banner messages
-                PlEngine.Initialize(param);
+                //PlEngine.Initialize(param);
             }
         }
 

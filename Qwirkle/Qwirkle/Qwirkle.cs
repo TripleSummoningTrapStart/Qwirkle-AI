@@ -19,6 +19,7 @@ namespace Qwirkle
         private PictureBox _originClicked;
         private Stack<Tuple<PictureBox, PictureBox>> _undoStack;
         private List<Tuple<Block, int, int>> _holdPlay;
+        private List<PictureBox> lastAIPlay;
         public Qwirkle(MakePlayDelegate d, Controller c)
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace Qwirkle
             _makePlay = d;
             _undoStack = new Stack<Tuple<PictureBox, PictureBox>>();
             _holdPlay = new List<Tuple<Block, int, int>>();
+            lastAIPlay = null;
 
         }
 
@@ -35,11 +37,12 @@ namespace Qwirkle
         {
             //var res = _prolog.Test();
             //MessageBox.Show(res);
+
             bool validPlay = _makePlay(_holdPlay);
             if (validPlay)
             {
                 _undoStack.Clear();
-
+                
             }
             else
             {
@@ -49,7 +52,7 @@ namespace Qwirkle
             _holdPlay.Clear();
 
         }
-        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, Block[,] board, List<Tuple<Block, int, int>> AIPlay)
+        public void UpdateForm(Block[] playerHand, int playerScore, int computerScore, List<Tuple<Block, int, int>> AIPlay)
         {
             Playerhand1.Image = playerHand[0].Image;
             Playerhand2.Image = playerHand[1].Image;
@@ -66,8 +69,26 @@ namespace Qwirkle
 
             PlayerScore.Text = playerScore.ToString();
             AIScore.Text = computerScore.ToString();
-            //Controls.OfType<PictureBox>().fi
-            //http://stackoverflow.com/questions/19775851/ability-to-find-winform-control-via-the-tag-property
+            if(lastAIPlay != null)
+            {
+                UndoAIPlayHighlighting();
+            }
+            
+            List<PictureBox> aiPlayHold = new List<PictureBox>();
+            foreach(Tuple<Block, int, int> p in AIPlay)
+            {
+                string tagName = p.Item2.ToString() + ',' + p.Item3.ToString();
+                PictureBox pb = Controls.OfType<PictureBox>().First<PictureBox>(control => String.Equals(control.Tag, tagName));
+                pb.Image = p.Item1.Image;
+                Padding pad = new Padding(3);
+                pb.Padding = pad;
+                pb.BackColor = Color.Red;
+                aiPlayHold.Add(pb);
+                //http://stackoverflow.com/questions/19775851/ability-to-find-winform-control-via-the-tag-property
+            }
+            lastAIPlay = aiPlayHold;
+
+
 
         }
 
@@ -186,6 +207,15 @@ namespace Qwirkle
                     count++;
                 }
 
+            }
+        }
+        private void UndoAIPlayHighlighting()
+        {
+            foreach(PictureBox p in lastAIPlay)
+            {
+                p.BackColor = Color.White;
+                Padding pad = new Padding(0);
+                p.Padding = pad;
             }
         }
     }

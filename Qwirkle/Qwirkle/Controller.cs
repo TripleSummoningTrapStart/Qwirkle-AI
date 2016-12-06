@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Drawing;
+using Qwirkle.Properties;
 
 namespace Qwirkle
 {
@@ -14,22 +16,27 @@ namespace Qwirkle
         private Human _human;
         private Player _AI;
         private List<UpdateDelegate> _observer;
+        private string test = "[[play(space(0, 1), tile(star, red)), play(space(0, 0), tile(cross, red)), play(space(0, 2), tile(square, red))],[play(space(0, 1), tile(star, red)), play(space(0, 0), tile(cross, red))],[play(space(0, 1), tile(star, red))]]";
         public Controller(List<UpdateDelegate> observer, PrologCommunicator p, int AIDifficulty)
         {
             _observer = observer;
             _board = new Board();
             _human = new Human(MakeNewHand());
             _prolog = p;
+
+            Block[] testHand = new Block[] { new Block (BlockColor.red, BlockShape.cross, (Image)Resources.ResourceManager.GetObject(BlockShape.cross.ToString() + '-' + BlockColor.red.ToString())),
+                                                        new Block (BlockColor.red, BlockShape.star, (Image)Resources.ResourceManager.GetObject(BlockShape.star.ToString() + '-' + BlockColor.red.ToString())),
+                                                        new Block (BlockColor.red, BlockShape.square, (Image)Resources.ResourceManager.GetObject(BlockShape.square.ToString() + '-' + BlockColor.red.ToString()))};
             switch (AIDifficulty)
             {
                 case 0:
-                    _AI = new AIEasy(MakeNewHand());
+                    _AI = new AIEasy(testHand);
                     break;
                 case 1:
-                    _AI = new AIMedium(MakeNewHand());
+                    _AI = new AIMedium(testHand);
                     break;
                 case 2:
-                    _AI = new AIHard(MakeNewHand());
+                    _AI = new AIHard(testHand, Score);
                     break;
             }
         }
@@ -38,7 +45,7 @@ namespace Qwirkle
         {
             foreach (UpdateDelegate d in _observer)
             {
-                d(_human.Hand, _human.Score, 0, _board.GameArea, aiPlay);
+                d(_human.Hand, _human.Score, 0, aiPlay);
             }
         }
         private Block[] MakeNewHand()
@@ -54,7 +61,7 @@ namespace Qwirkle
         {
             if (play == null)
             {
-                FireObserver(null);
+                FireObserver(new List<Tuple<Block, int, int>>());
             }
             else
             {
@@ -72,8 +79,8 @@ namespace Qwirkle
                     _board.updateBoard(play);
                     int humanScore = Score(play);
                     _human.UpdateScore(humanScore);
-
-                    FireObserver(null);
+                    List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
+                    FireObserver(aiPlay);
                     return true;
                 }
             }
@@ -126,6 +133,35 @@ namespace Qwirkle
         {
             string board = _board.ConvertBoardToStringArray();
             File.WriteAllText(@"U:\ai\testBoard1.txt", board);
+        }
+        private List<List<Tuple<string, string, int, int>>> parseReturnedPlays(string s)
+        {
+            List<List<Tuple<string, string, int, int>>> plays = new List<List<Tuple<string, string, int, int>>>();
+            s = s.Substring(1, s.Length - 1).Replace(",", "").Replace("play", "");
+            string[][] test = s.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Split(new char[] { '(', ')', ' ' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
+            foreach(string[] st in test)
+            {
+                List<Tuple<string, string, int, int>> holdList = new List<Tuple<string, string, int, int>>();
+                for(int i = 0; i < st.Length; i++)
+                {
+                    if(st[i] == " ")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if(st[i] == "space")
+                        {
+                            Tuple<string, string, int, int> hold = new Tuple<string, string, int, int>(st[i + 4], st[i + 5], Convert.ToInt32(st[i + 1]), Convert.ToInt32(st[i + 2]));
+                            i += 5;
+                            holdList.Add(hold);
+                        }
+                    }
+                }
+
+                plays.Add(holdList);
+            }
+            return plays;
         }
     }
 }

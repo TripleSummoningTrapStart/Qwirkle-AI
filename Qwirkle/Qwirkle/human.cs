@@ -33,10 +33,9 @@ namespace Qwirkle
             
         }
 
-        public override List<Tuple<Block, int, int>> DeterminePlay(string[] Plays)
+        public override List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays)
         {
             throw new NotImplementedException();
         }
-
     }
 }

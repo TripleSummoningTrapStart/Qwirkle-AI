@@ -22,9 +22,20 @@
 
 
 
-b1([[play(0,4, tile(star,green)),play(0,5, tile(square,green)),play(0,6, tile(diamond,green))],[play(1,2, tile(diamond,orange)),play(1,4, tile(star,purple))],[play(2,2, tile(star,orange)),play(2,3, tile(star,yellow)),play(2,4, tile(star,blue)),play(2,5, tile(star,purple)),play(2,6, tile(star,red))],[play(3,0, tile(square,purple)),play(3,1, tile(square,blue)),play(3,2, tile(square,orange)),play(3,3, tile(square,yellow)),play(3,6, tile(cross,red)),play(3,7, tile(cross,blue))],[play(4,1, tile(circle,blue)),play(4,3, tile(cross,yellow)),play(4,6, tile(cross,red)),play(4,7, tile(cross,orange))],[play(5,3, tile(clover,yellow)),play(5,4, tile(clover,green)),play(5,5, tile(clover,orange)),play(5,7, tile(cross,red))],[play(6,3, tile(circle,yellow))],[play(7,3, tile(diamond,yellow))]]).
+b1([[play(0,4, tile(star,green)),play(0,5, tile(square,green)),play(0,6, tile(diamond,green))],
+	[play(1,2, tile(diamond,orange)),play(1,4, tile(star,purple))],
+	[play(2,2, tile(star,orange)),play(2,3, tile(star,yellow)),play(2,4, tile(star,blue)),play(2,5, tile(star,purple)),play(2,6, tile(star,red))],
+	[play(3,0, tile(square,purple)),play(3,1, tile(square,blue)),play(3,2, tile(square,orange)),play(3,3, tile(square,yellow)),play(3,6, tile(cross,red)),play(3,7, tile(cross,blue))],
+	[play(4,1, tile(circle,blue)),play(4,3, tile(cross,yellow)),play(4,6, tile(cross,red)),play(4,7, tile(cross,orange))],
+	[play(5,3, tile(clover,yellow)),play(5,4, tile(clover,green)),play(5,5, tile(clover,orange)),play(5,7, tile(cross,red))],
+	[play(6,3, tile(circle,yellow))],
+	[play(7,3, tile(diamond,yellow))]]).
 
 
+isgapMultiple([], _, []).
+isgapMultiple([space(X, Y) | Rest], Board, [N1 | Neighbors]) :-
+	isgapLeft(X, Y, Board, N1),
+	isgapMultiple(Rest, Board, Neighbors).
 
 % Returns true if there is a tile directly left gap
 isgapLeft(X1, Y, [[play(X2, _, _) | _] | R2], Neighbors) :- % Too far left
@@ -109,16 +120,14 @@ isgapRight(_, _, _, []).
 
 
 
-
 /* Is Legal */ 
-isLegal(T) :- isSingleColor(T), isLegalShape(T).
-isLegal(T) :- isSingleShape(T), isLegalColor(T).
+isLegal(T) :- (isSingleShape(T), isLegalColor(T)) ; (isSingleColor(T), isLegalShape(T)).
+%isLegal(T) :- isSingleColor(T), isLegalShape(T).
 	
 isLegalColor([]).
 isLegalColor([tile(S, _) | Rest]) :- 
 		not(containsShape(S, Rest)),
-		isLegalColor(Rest).
-		
+		isLegalColor(Rest
 isLegalShape([tile(_, C) | Rest]) :-
 		not(containsColor(C, Rest)),
 		isLegalShape(Rest).
@@ -135,13 +144,13 @@ containsShape([tile(S, _) | Rest], Shape) :-
 /* Single Type */
 isSingleColor([]).
 isSingleColor([tile]).
-isSingleColor([tile(_, C1), tile(_, C2)]) :- C1 is C2.
-isSingleColor([tile(_, C1), tile(S2, C2) | Rest]) :- C1 is C2, isSingleColor([tile(S2,C2) | Rest]).
+isSingleColor([tile(_, C1), tile(_, C2)]) :- C1 == C2.
+isSingleColor([tile(_, C1), tile(S2, C2) | Rest]) :- C1 == C2, isSingleColor([tile(S2,C2) | Rest]).
 
 isSingleShape([]).
 isSingleShape([tile]).
-isSingleShape([tile(S1, _), tile(S2, _)]) :- S1 is S2.
-isSingleShape([tile(S1, _), tile(S2, C2) | Rest]) :- S1 is S2, isSingleShape([tile(S2,C2) | Rest]).
+isSingleShape([tile(S1, _), tile(S2, _)]) :- S1 == S2.
+isSingleShape([tile(S1, _), tile(S2, C2) | Rest]) :- S1 == S2, isSingleShape([tile(S2,C2) | Rest]).
 
 
 

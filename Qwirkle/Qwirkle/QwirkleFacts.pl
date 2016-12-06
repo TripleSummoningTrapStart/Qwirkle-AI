@@ -6,161 +6,93 @@
 	foreach play every word made must be legal
 	
 	Include ability to dump?
-	
-	tile(Shape, Color)
-	word([tile(S, C) | Rest])
-	played([play(X, Y, tile(S, C)) | Rest])
-	
-	Exammple Board:
-	[[play(0,4, tile(star,green)),play(0,5, tile(square,green)),play(0,6, tile(diamond,green))],[play(1,2, tile(diamond,orange)),play(1,4, tile(star,purple))],[play(2,2, tile(star,orange)),play(2,3, tile(star,yellow)),play(2,4, tile(star,blue)),play(2,5, tile(star,purple)),play(2,6, tile(star,red))],[play(3,0, tile(square,purple)),play(3,1, tile(square,blue)),play(3,2, tile(square,orange)),play(3,3, tile(square,yellow)),play(3,6, tile(cross,red)),play(3,7, tile(cross,blue))],[play(4,1, tile(circle,blue)),play(4,3, tile(cross,yellow)),play(4,6, tile(cross,red)),play(4,7, tile(cross,orange))],[play(5,3, tile(clover,yellow)),play(5,4, tile(clover,green)),play(5,5, tile(clover,orange)),play(5,7, tile(cross,red))],[play(6,3, tile(circle,yellow))],[play(7,3, tile(diamond,yellow))]]
-*/
-/*
-*/
+*/ 
 
-%tile(S, C).
-%play(X, Y, tile(S, C)).
-
-
-
-b1([[play(0,4, tile(star,green)),play(0,5, tile(square,green)),play(0,6, tile(diamond,green))],
-	[play(1,2, tile(diamond,orange)),play(1,4, tile(star,purple))],
-	[play(2,2, tile(star,orange)),play(2,3, tile(star,yellow)),play(2,4, tile(star,blue)),play(2,5, tile(star,purple)),play(2,6, tile(star,red))],
-	[play(3,0, tile(square,purple)),play(3,1, tile(square,blue)),play(3,2, tile(square,orange)),play(3,3, tile(square,yellow)),play(3,6, tile(cross,red)),play(3,7, tile(cross,blue))],
-	[play(4,1, tile(circle,blue)),play(4,3, tile(cross,yellow)),play(4,6, tile(cross,red)),play(4,7, tile(cross,orange))],
-	[play(5,3, tile(clover,yellow)),play(5,4, tile(clover,green)),play(5,5, tile(clover,orange)),play(5,7, tile(cross,red))],
-	[play(6,3, tile(circle,yellow))],
-	[play(7,3, tile(diamond,yellow))]]).
-
-
-isgapMultiple([], _, []).
-isgapMultiple([space(X, Y) | Rest], Board, [N1 | Neighbors]) :-
-	isgapLeft(X, Y, Board, N1),
-	isgapMultiple(Rest, Board, Neighbors).
-
-% Returns true if there is a tile directly left gap
-isgapLeft(X1, Y, [[play(X2, _, _) | _] | R2], Neighbors) :- % Too far left
-	X2 < X1 - 1,
-	!,
-	isgapLeft(X1, Y, R2, Neighbors).
-isgapLeft(X1, Y1, [[play(X2, Y2, _) | R1] | R2], Neighbors) :- % Correct Column, Too high
-	X1 is (X2 + 1),
-	Y2 < Y1,
-	!,
-	isgapLeft(X1, Y1, [R1 | R2], Neighbors).
-isgapLeft(X1, Y, [[play(X2, Y, T) | _] | R2], [play(X2, Y, T) | Neighbors]) :- % Is left neighbor
-	X1 is (X2 + 1),
-	!,
-	isgapUp(X1, Y, R2, Neighbors).
-isgapLeft(X1, Y, [[play(X2, _, _) | _] | R2], Neighbors) :- % Missed left, Same Column
-	X1 is (X2 + 1),
-	!,
-	isgapUp(X1, Y, R2, Neighbors).
-isgapLeft(X, Y, [[] | R2], Neighbors) :- % Missed Left, no elements left in column
-	!,
-	isgapUp(X, Y, R2, Neighbors).
-isgapLeft(X, Y, Board, Neighbors) :- % Missed Left
-	isgapUp(X, Y, Board, Neighbors).
-	
-
-% Returns true if there is a tile directly above the gap
-isgapUp(X1, Y1, [[play(X1, Y2, _) | R1] | R2], Neighbors) :- % Same Column, Too far up
-	Y2 < Y1 - 1,
-	!,
-	isgapUp(X1, Y1, [R1 | R2], Neighbors).
-isgapUp(X, Y1, [[play(X, Y2, T) | R1] | R2], [play(X, Y2, T) | Neighbors]) :- % Is top neighbor
-	Y1 is Y2 + 1, 
-	!,
-	isgapCenter(X, Y1, [R1 | R2], Neighbors).
-isgapUp(X, Y1, [[play(X, Y2, T) | R1] | R2], Neighbors) :- % Missed Top, Correct Column
-	Y2 > Y1 - 1, 
-	!,
-	isgapCenter(X, Y1, [[play(X, Y2, T) | R1] | R2], Neighbors).
-isgapUp(X, Y, [[] | R2], Neighbors) :- % Missed Top, Next Column
-	!,
-	isgapRight(X, Y, R2, Neighbors).
-isgapUp(X, Y, Board, Neighbors) :- % Missed Top
-	!,
-	isgapRight(X, Y, Board, Neighbors).
-
-	
-% Returns true if there is a tile directly at the gap
-isgapCenter(X1, Y1, [[play(X2, Y2, T) | R1] | R2], Neighbors) :- % Place not taken
-	(not(X1 is X2); not(Y1 is Y2)), 
-	!,
-	isgapDown(X1, Y1, [[play(X2, Y2, T) | R1] | R2], Neighbors).
-isgapCenter(X, Y, [[] | R2], Neighbors) :- 
-	!,
-	isgapRight(X, Y, R2, Neighbors).
-isgapCenter(X, Y, Board, Neighbors) :- 
-	isgapRight(X, Y, Board, Neighbors).
-
-	
-% Returns true if there is a tile directly below the gap
-isgapDown(X, Y1, [[play(X, Y2, T) | _] | R2], [play(X, Y2, T) | Neighbors]) :-
-	Y1 is Y2 - 1,
-	!,
-	isgapRight(X, Y1, R2, Neighbors).
-isgapDown(X, Y, [_ | R2], Neighbors) :-
-	!,
-	isgapRight(X, Y, R2, Neighbors).
-isgapDown(X, Y, Board, Neighbors) :-
-	isgapRight(X, Y, Board, Neighbors).
-	
-	
-% Returns true if there is a tile directly Right the gap
-isgapRight(X1, Y1, [[play(X2, Y2, _) | R1] | R2], Neighbors) :-
-	X1 is X2 - 1,
-	Y2 < Y1, 
-	!,
-	isgapRight(X1, Y1, [R1 | R2], Neighbors).
-isgapRight(X1, Y, [[play(X2, Y, T) | _] | _], [play(X2, Y, T)]) :- 
-	X1 is X2 - 1,
-	!.
-isgapRight(_, _, _, []).
-
-
-
-/* Is Legal */ 
-isLegal(T) :- (isSingleShape(T), isLegalColor(T)) ; (isSingleColor(T), isLegalShape(T)).
-%isLegal(T) :- isSingleColor(T), isLegalShape(T).
-	
-isLegalColor([]).
-isLegalColor([tile(S, _) | Rest]) :- 
-		not(containsShape(S, Rest)),
-		isLegalColor(Rest
-isLegalShape([tile(_, C) | Rest]) :-
-		not(containsColor(C, Rest)),
-		isLegalShape(Rest).
-		
-/* Contains */
-containsColor([tile(_, C) | Rest], Color) :- 
-		C is Color,
-		containsColor(Rest, Color).
-
-containsShape([tile(S, _) | Rest], Shape) :- 
-		S is Shape,
-		containsShape(Rest, Shape).
-		
-/* Single Type */
-isSingleColor([]).
-isSingleColor([tile]).
-isSingleColor([tile(_, C1), tile(_, C2)]) :- C1 == C2.
-isSingleColor([tile(_, C1), tile(S2, C2) | Rest]) :- C1 == C2, isSingleColor([tile(S2,C2) | Rest]).
-
-isSingleShape([]).
-isSingleShape([tile]).
-isSingleShape([tile(S1, _), tile(S2, _)]) :- S1 == S2.
-isSingleShape([tile(S1, _), tile(S2, C2) | Rest]) :- S1 == S2, isSingleShape([tile(S2,C2) | Rest]).
-
-
-
-/* Variations */
-varia(0,_,[]).
-varia(N,L,[H|Varia]) :- 
-	N>0,
-	N1 is N-1,
-	delete(H,L,Rest),
-	varia(N1,Rest,Varia).
+xy(space(X, Y), X, Y).
+xy(play(S, _), X, Y) :- xy(S, X, Y).
+x(SorP, X) :- xy(SorP, X, _).
+y(SorP, Y) :- xy(SorP, _, Y).
+isFarLeft(Src, Dest)   :- x(Src, X1),  x(Dest, X2), X2 < X1 - 1.
+isNextLeft(Src, Dest)   :- x(Src, X1),  x(Dest, X2), X2 is X1 - 1.
+isFarAbove(Src, Dest)   :- y(Src, Y1),  y(Dest, Y2), Y2 < Y1 - 1.
+isNextAbove(Src, Dest)   :- y(Src, Y1),  y(Dest, Y2), Y2 is Y1 - 1.
+isAtVertically(Src, Dest)  :- y(Src, Y),  y(Dest, Y).
+ 
+lookLeft(S, [[P | _] | B ], N) :-       %jump right one column
+   isFarLeft(S, P),
+   !,lookLeft(S, B, N).
    
-delete(X,[X|T],T).
-delete(X,[H|T],[H|NT]) :- delete(X,T,NT).
+lookLeft(S, [[P | C] | B], N) :-       %switch to near mode
+   isNextLeft(S, P),
+   !,lookNearLeft(S, [[P | C] | B], N).
+   
+lookLeft(S, B, N) :- lookMaybeUp(S, B, N).      %switch to up mode
+lookNearLeft(S, [[P | C] | B], N) :-      %jump down one cell
+   isFarAbove(S, P),
+   !,lookNearLeft(S, [C | B], N).
+lookNearLeft(S, [[P | C] | B], N) :-      %jump down one cell
+   isNextAbove(S, P),
+   !,lookNearLeft(S, [C | B], N).
+lookNearLeft(S, [[P | _] | B], [P | N]) :-     %is left neighbor
+   isAtVertically(S, P),
+   !,lookUp(S, B, N).
+lookNearLeft(S, [_ | B], N) :- lookUp(S, B, N).  %correct column, went to far down because there is no left neoghbor
+lookMaybeUp(S, [[P | _] | B], N) :-
+   isFarLeft(P, S),
+   !, lookRight(S, B, N).
+   
+lookMaybeUp(S, [[P | _] | B], N) :-
+   isNextLeft(P, S),
+   !, lookRight(S, B, N).
+lookMaybeUp(S, B, N) :- lookUp(S, B, N).   
+   
+lookUp(S, [[P | C] | B], N) :-
+   isFarAbove(S, P),
+   !, lookUp(S, [C | B], N).
+lookUp(S, [[P | C] | B], [P | N]) :-
+   isNextAbove(S, P),
+   !, lookCenter(S, [C | B], N).
+lookUp(S, B, N) :- lookCenter(S, B, N).
+
+lookCenter(S, [[P | C] | B], N) :-
+   isFarAbove(P, S),
+   !, lookDown(S, [[P | C] | B], N).
+  
+lookCenter(S, [[P | C] | B], N) :-
+   isNextAbove(P, S),
+   !, lookDown(S, [[P | C] | B], N).
+   
+lookCenter(S, [[] | B], N) :-
+   lookRight(S, B, N).
+   
+lookCenter(S, [], N) :-
+   lookRight(S, [], N).
+  
+lookDown(S, [[P | _] | B], [P | N]) :-
+   isNextAbove(P, S),
+   !, lookRight(S, B, N).
+lookDown(S, [_ | B], N) :-
+   lookRight(S, B, N).
+lookRight(S, [[P | C] | B], N) :-
+   isNextLeft(P, S),
+   !, lookNearRight(S, [[P | C] | B], N).
+lookRight(_, _, []).   
+   
+lookNearRight(S, [[P | C] | B], N) :-
+   isFarAbove(S, P),
+   !,lookNearRight(S, [C | B], N).
+lookNearRight(S, [[P | C] | B], N) :-      %jump down one cell
+   isNextAbove(S, P),
+   !,lookNearRight(S, [C | B], N).
+lookNearRight(S, [[P | _] | _], [P]) :-     %is left neighbor
+   isAtVertically(S, P),
+   !.
+   
+b([[play(space(0,4), tile(star,green)),play(space(0,5), tile(square,green)),play(space(0,6), tile(diamond,green))],[play(space(1,2), tile(diamond,orange)),play(space(1,4), tile(star,purple))],[play(space(2,2), tile(star,orange)),play(space(2,3), tile(star,yellow)),play(space(2,4), tile(star,blue)),play(space(2,5), tile(star,purple)),play(space(2,6), tile(star,red))],[play(space(3,0), tile(square,purple)),play(space(3,1), tile(square,blue)),play(space(3,2), tile(square,orange)),play(space(3,3), tile(square,yellow)),play(space(3,6), tile(cross,red)),play(space(3,7), tile(cross,blue))],[play(space(4,1), tile(circle,blue)),play(space(4,3), tile(cross,yellow)),play(space(4,6), tile(cross,red)),play(space(4,7), tile(cross,orange))],[play(space(5,3), tile(clover,yellow)),play(space(5,4), tile(clover,green)),play(space(5,5), tile(clover,orange)),play(space(5,7), tile(cross,red))],[play(space(6,3), tile(circle,yellow))],[play(space(7,3), tile(diamond,yellow))]]).
+isGap(S, N) :-
+ b(B),
+ lookLeft(S, B, N).
+ 
+spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
+ between(Xmin, Xmax, X),
+ between(Ymin, Ymax, Y).

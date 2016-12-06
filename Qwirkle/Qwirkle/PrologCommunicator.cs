@@ -36,7 +36,7 @@ namespace Qwirkle
         public string Test()
         {
             StringBuilder sb = new StringBuilder();
-            string qString = "b1(B), isgapLeft(7, 4, B, N)";
+            string qString = "b1(B), isgapMultiple([space(1, 3), space(8,3)], B, N)"; //"b1(B), isgapLeft(1, 3, B, N)";
             using (PlQuery q = new PlQuery(qString))
             {
                 foreach (PlQueryVariables v in q.SolutionVariables)

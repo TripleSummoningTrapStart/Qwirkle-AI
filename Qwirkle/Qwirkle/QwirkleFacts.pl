@@ -96,3 +96,81 @@ isGap(S, N) :-
 spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
  between(Xmin, Xmax, X),
  between(Ymin, Ymax, Y).
+ 
+/* Create hand play permutations */
+getPlays(Hand, Board, Plays) :-
+		forall(fuckingGapPred(S, Board, N), permuteGaps(Hand, Board, S, N, Plays)),		 % find gaps and insert permutations iteratively into gaps and check validity
+ 
+permuteGaps(Hand, Board, S, N, Plays) :- 
+		forall()
+		
+checkPlay()
+
+% Donnoe <------------------------------------------------------------------------
+% Use: comb(InList, Output).
+comb(InList,Out) :-
+    splitSet(InList,_,SubList),
+    SubList = [_|_],     /* disallow empty list */
+    permute(SubList,Out).
+
+splitSet([ ],[ ],[ ]).
+splitSet([H|T],[H|L],R) :-
+    splitSet(T,L,R).
+splitSet([H|T],L,[H|R]) :-
+    splitSet(T,L,R).
+
+permute([ ],[ ]) :- !.
+permute(L,[X|R]) :-
+    omit(X,L,M),
+    permute(M,R).
+
+omit(H,[H|T],T).
+omit(X,[H|L],[H|R]) :-
+    omit(X,L,R).
+
+ 
+/* Is Legal */ 
+isLegal(T) :- isSingleShape(T), !, isLegalShape(T), !. 
+isLegal(T) :- isSingleColor(T), !, isLegalColor(T), !.
+	
+isLegalColor([tile(S, _) | Rest]) :- 
+		notContainsShape(Rest, S),
+		!,
+		isLegalColor(Rest).
+isLegalColor([tile(S, _)]).
+isLegalColor([]).
+
+isLegalShape([tile(_, C) | Rest]) :-
+		notContainsColor(Rest, C)),
+		!,
+		isLegalShape(Rest).
+isLegalShape([tile(_, C)]).
+isLegalShape([]).
+		
+/* Contains */
+notContainsColor([tile(_, C)], Color) :-
+		C \= Color.
+notContainsColor([tile(_, C) | Rest], Color) :- 
+		C \= Color,
+		!,
+		notContainsColor(Rest, Color).
+
+notContainsShape([tile(S, _)], Shape) :-
+		S \= Shape.
+notContainsShape([tile(S, _) | Rest], Shape) :- 
+		S \= Shape,
+		!,
+		notContainsShape(Rest, Shape).
+		
+/* Single Type */
+isSingleColor([]).
+isSingleColor([tile(_, _)]) :- !.
+isSingleColor([tile(_, C1), tile(_, C2)]) :- C1 == C2.
+isSingleColor([tile(_, C1), tile(S2, C2) | Rest]) :- C1 == C2, !, isSingleColor([tile(S2,C2) | Rest]).
+
+isSingleShape([]).
+isSingleShape([tile(_, _)]) :- !.
+isSingleShape([tile(S1, _), tile(S2, _)]) :- S1 == S2.
+isSingleShape([tile(S1, _), tile(S2, C2) | Rest]) :- S1 == S2, !, isSingleShape([tile(S2,C2) | Rest]).
+
+

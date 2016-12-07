@@ -150,3 +150,7 @@ fuckingGapPred(S, B, N) :-
 lfgp(S,N) :-
 	b(B),
 	fuckingGapPred(S, B, N).
+	
+slfgp(tuple(S, N)) :- lfgp(S, N).
+
+% findAll(tuple(S, N), fuckingGapPred(S, "your fucking literal here", N), L).

@@ -21,7 +21,21 @@ namespace Qwirkle
                 this.Hand[Hand.Length - newBlocks.Length + i] = newBlocks[i];
             }
         }
-        public abstract void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play);
+        public void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play)
+        {
+
+            List<Block> HandList = Hand.ToList<Block>();
+            foreach (Tuple<Block, int, int> p in play)
+            {
+                HandList.Remove(p.Item1);
+            }
+            while (HandList.Count < 6)
+            {
+                HandList.Add(null);
+            }
+            Hand = HandList.ToArray();
+
+        }
         public void UpdateScore(int score)
         {
             this.Score += score;

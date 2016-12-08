@@ -49,10 +49,5 @@ namespace Qwirkle
             
             return bestPlay;
         }
-
-        public override void RemoveBlocksFromHand(List<Tuple<Block, int, int>> play)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

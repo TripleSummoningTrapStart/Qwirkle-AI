@@ -79,7 +79,7 @@ namespace Qwirkle
             }
             return score;
         }
-        public string ConvertBoardToStringArray()
+        public string ConvertBoardToString()
         {
             StringBuilder returnString = new StringBuilder("[");
             

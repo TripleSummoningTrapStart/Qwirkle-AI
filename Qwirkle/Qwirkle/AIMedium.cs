@@ -35,5 +35,10 @@ namespace Qwirkle
             }
             return convertedPlay;
         }
+
+        public override List<Tuple<Block, int, int>> PlayOnGap(List<Tuple<int, int>> gaps)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

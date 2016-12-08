@@ -35,5 +35,16 @@ namespace Qwirkle
             }
             return convertedPlay;
         }
+
+        public override List<Tuple<Block, int, int>> PlayOnGap(List<Tuple<int, int>> gaps)
+        {
+            int block = rnd.Next(0, Hand.Length);
+            int gap = rnd.Next(0, gaps.Count);
+            List<Tuple<Block, int, int>> play = new List<Tuple<Block, int, int>>();
+            Tuple<int, int> theGap = gaps[gap];
+            play.Add(new Tuple<Block, int, int>(Hand[block], theGap.Item1, theGap.Item2));
+            return play;
+        }
+
     }
 }

@@ -77,9 +77,11 @@ namespace Qwirkle
                     }
                     _human.FillHand(fillhand);
                     _board.updateBoard(play);
+                    //parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString()));
                     int humanScore = Score(play);
                     _human.UpdateScore(humanScore);
-                    List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
+                    //List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
+                    List<Tuple<Block, int, int>> aiPlay = _AI.PlayOnGap(parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString())));
                     FireObserver(aiPlay);
                     return true;
                 }
@@ -131,17 +133,21 @@ namespace Qwirkle
         }
         public void WriteBoard()
         {
-            string board = _board.ConvertBoardToStringArray();
+            string board = _board.ConvertBoardToString();
             File.WriteAllText(@"U:\ai\testBoard1.txt", board);
         }
         private List<List<Tuple<string, string, int, int>>> parseReturnedPlays(string s)
         {
             List<List<Tuple<string, string, int, int>>> plays = new List<List<Tuple<string, string, int, int>>>();
-            s = s.Substring(1, s.Length - 1).Replace(",", "").Replace("play", "");
+            s = s.Substring(1, s.Length - 1).Replace(",", " ").Replace("play", "").Replace("tuple","");
             string[][] test = s.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Split(new char[] { '(', ')', ' ' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
             foreach(string[] st in test)
             {
                 List<Tuple<string, string, int, int>> holdList = new List<Tuple<string, string, int, int>>();
+                if(st.Length > 3)
+                {
+                    continue;
+                }
                 for(int i = 0; i < st.Length; i++)
                 {
                     if(st[i] == " ")
@@ -150,11 +156,11 @@ namespace Qwirkle
                     }
                     else
                     {
-                        if(st[i] == "space")
+                        if (st[i] == "space")
                         {
-                            Tuple<string, string, int, int> hold = new Tuple<string, string, int, int>(st[i + 4], st[i + 5], Convert.ToInt32(st[i + 1]), Convert.ToInt32(st[i + 2]));
-                            i += 5;
-                            holdList.Add(hold);
+                            //Tuple<string, string, int, int> hold = new Tuple<string, string, int, int>(st[i + 4], st[i + 5], Convert.ToInt32(st[i + 1]), Convert.ToInt32(st[i + 2]));
+                            //i += 5;
+                            //holdList.Add(hold);
                         }
                     }
                 }
@@ -162,6 +168,25 @@ namespace Qwirkle
                 plays.Add(holdList);
             }
             return plays;
+        }
+        private List<Tuple<int, int>> parseReturnedGaps(string s)
+        {
+            List<Tuple<int, int>> gaps = new List<Tuple<int, int>>();
+            s = s.Substring(1, s.Length - 1).Replace(",", " ").Replace("play", "").Replace("tuple", "");
+            string[][] test = s.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Split(new char[] { '(', ')', ' ' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
+            foreach (string[] st in test)
+            {
+                if (st.Length > 3 || st.Length == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    Tuple<int, int> hold = new Tuple<int, int>(Convert.ToInt32(st[1]), Convert.ToInt32(st[2]));
+                    gaps.Add(hold);
+                }
+            }
+            return gaps;
         }
     }
 }

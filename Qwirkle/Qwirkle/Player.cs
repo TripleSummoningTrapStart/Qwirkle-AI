@@ -41,5 +41,6 @@ namespace Qwirkle
             this.Score += score;
         }
         public abstract List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays);
+        public abstract List<Tuple<Block, int, int>> PlayOnGap(List<Tuple<int, int>> gaps);
     }
 }

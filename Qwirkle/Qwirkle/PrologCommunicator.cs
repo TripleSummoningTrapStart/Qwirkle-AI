@@ -14,10 +14,14 @@ namespace Qwirkle
         /// </summary>
         public PrologCommunicator()
         {
+            Environment.SetEnvironmentVariable("SWI_HOME_DIR", @"C:\Program Files (x86)\swipl\boot32.prc");
+            string pathvar = Environment.GetEnvironmentVariable("PATH");
+            pathvar += @"C:\Program Files (x86)\swipl\bin";
+            Environment.SetEnvironmentVariable("PATH", pathvar);
             if (!PlEngine.IsInitialized)
             {
                 String[] param = { "-q", "-f", "QwirkleFacts.pl" }; // suppressing informational and banner messages
-                //PlEngine.Initialize(param);
+                PlEngine.Initialize(param);
             }
         }
 
@@ -31,6 +35,20 @@ namespace Qwirkle
         {
 
             return null;
+        }
+
+        public string GetGaps(string board)
+        {
+            StringBuilder sb = new StringBuilder();
+            string qString = "findall(tuple(S, N), fuckingGapPred(S, "+ board + ", N), L)"; //"b1(B), isgapLeft(1, 3, B, N)";
+            using (PlQuery q = new PlQuery(qString))
+            {
+                foreach (PlQueryVariables v in q.SolutionVariables)
+                {
+                    sb.Append(v["L"]);
+                }
+            }
+            return sb.ToString();
         }
 
         public string Test()

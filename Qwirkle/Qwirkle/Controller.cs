@@ -65,7 +65,7 @@ namespace Qwirkle
             }
             else
             {
-                bool valid = true;
+                bool valid = _prolog.TestMove(ConvertPlayToString(play));
                 //Check Valid play in prolog
                 if (valid)
                 {
@@ -82,6 +82,7 @@ namespace Qwirkle
                     _human.UpdateScore(humanScore);
                     //List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
                     List<Tuple<Block, int, int>> aiPlay = _AI.PlayOnGap(parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString())));
+                    _board.updateBoard(aiPlay);
                     FireObserver(aiPlay);
                     return true;
                 }
@@ -139,18 +140,18 @@ namespace Qwirkle
         private List<List<Tuple<string, string, int, int>>> parseReturnedPlays(string s)
         {
             List<List<Tuple<string, string, int, int>>> plays = new List<List<Tuple<string, string, int, int>>>();
-            s = s.Substring(1, s.Length - 1).Replace(",", " ").Replace("play", "").Replace("tuple","");
+            s = s.Substring(1, s.Length - 1).Replace(",", " ").Replace("play", "").Replace("tuple", "");
             string[][] test = s.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Split(new char[] { '(', ')', ' ' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
-            foreach(string[] st in test)
+            foreach (string[] st in test)
             {
                 List<Tuple<string, string, int, int>> holdList = new List<Tuple<string, string, int, int>>();
-                if(st.Length > 3)
+                if (st.Length > 3)
                 {
                     continue;
                 }
-                for(int i = 0; i < st.Length; i++)
+                for (int i = 0; i < st.Length; i++)
                 {
-                    if(st[i] == " ")
+                    if (st[i] == " ")
                     {
                         continue;
                     }
@@ -187,6 +188,19 @@ namespace Qwirkle
                 }
             }
             return gaps;
+        }
+        private string ConvertPlayToString(List<Tuple<Block, int, int>> play)
+        {
+            StringBuilder returnString = new StringBuilder("[");
+
+            for (int i = 0; i < play.Count; i++)
+            {
+                Block b = play[i].Item1;
+                returnString.Append(string.Format("tile({0},{1}),", b.Shape, b.Color));
+            }
+            returnString.Remove(returnString.Length - 1, 1);
+            returnString.Append("]");
+            return returnString.ToString();
         }
     }
 }

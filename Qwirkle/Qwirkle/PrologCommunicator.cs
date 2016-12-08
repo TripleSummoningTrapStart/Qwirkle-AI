@@ -31,9 +31,9 @@ namespace Qwirkle
             string qString = "isLegal(" + move + ")";
             using (PlQuery q = new PlQuery(qString))
             {
-                var v = q.Solutions;
+                var v = new List<PlTermV>(q.Solutions);
+                return v.Count > 0;
             }
-            return false;
         }
 
         public string GetMoves(string board, string hand)

@@ -14,9 +14,10 @@ namespace Qwirkle
         /// </summary>
         public PrologCommunicator()
         {
-            Environment.SetEnvironmentVariable("SWI_HOME_DIR", @"C:\Program Files (x86)\swipl\boot32.prc");
+            string baseDirectory = Environment.CurrentDirectory.Replace(@"\Qwirkle\Qwirkle\bin\Debug", "");
+            Environment.SetEnvironmentVariable("SWI_HOME_DIR", baseDirectory + @"\swipl\boot32.prc");
             string pathvar = Environment.GetEnvironmentVariable("PATH");
-            pathvar += @"C:\Program Files (x86)\swipl\bin";
+            pathvar += baseDirectory + @"\swipl\bin";
             Environment.SetEnvironmentVariable("PATH", pathvar);
             if (!PlEngine.IsInitialized)
             {

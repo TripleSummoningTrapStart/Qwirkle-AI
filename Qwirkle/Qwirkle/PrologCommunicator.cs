@@ -28,7 +28,11 @@ namespace Qwirkle
 
         public bool TestMove(string move)
         {
-
+            string qString = "isLegal(" + move + ")";
+            using (PlQuery q = new PlQuery(qString))
+            {
+                var v = q.Solutions;
+            }
             return false;
         }
 
@@ -41,7 +45,7 @@ namespace Qwirkle
         public string GetGaps(string board)
         {
             StringBuilder sb = new StringBuilder();
-            string qString = "findall(tuple(S, N), fuckingGapPred(S, "+ board + ", N), L)"; //"b1(B), isgapLeft(1, 3, B, N)";
+            string qString = "findall(tuple(S, N), fuckingGapPred(S, " + board + ", N), L)"; //"b1(B), isgapLeft(1, 3, B, N)";
             using (PlQuery q = new PlQuery(qString))
             {
                 foreach (PlQueryVariables v in q.SolutionVariables)

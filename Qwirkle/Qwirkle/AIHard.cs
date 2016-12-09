@@ -10,15 +10,13 @@ namespace Qwirkle
     {
         public override Block[] Hand { get; protected set; }
         public override int Score { get; protected set; }
-
-        private ScorePlayDelegate _score;
-        public AIHard(Block[] startHand, ScorePlayDelegate mp):base(startHand)
+       
+        public AIHard(Block[] startHand):base(startHand)
         {
             this.Hand = startHand;
-            this._score = mp;
         }
 
-        public override List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays)
+        public override List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays, ScorePlayDelegate scorePlay)
         {
             List<Tuple<Block, int, int>> bestPlay = new List<Tuple<Block, int, int>>();
             int bestPlayScore = int.MinValue;
@@ -38,7 +36,7 @@ namespace Qwirkle
                         }
                     }
                 }
-                int testScore = _score(convertedPlay);
+                int testScore = scorePlay(convertedPlay);
                 if(testScore > bestPlayScore)
                 {
                     bestPlay = convertedPlay;

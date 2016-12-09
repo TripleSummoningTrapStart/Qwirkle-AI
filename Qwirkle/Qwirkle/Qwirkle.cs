@@ -38,7 +38,11 @@ namespace Qwirkle
             //var res = _prolog.Test();
             //MessageBox.Show(res);
 
-            bool validPlay = _makePlay(_holdPlay);
+            bool validPlay = false;
+            if(_holdPlay.Count > 0)
+            {
+               validPlay = _makePlay(_holdPlay);
+            }
             if (validPlay)
             {
                 _undoStack.Clear();

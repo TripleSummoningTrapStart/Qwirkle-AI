@@ -30,13 +30,13 @@ namespace Qwirkle
             switch (AIDifficulty)
             {
                 case 0:
-                    _AI = new AIEasy(testHand);
+                    _AI = new AIEasy(MakeNewHand());
                     break;
                 case 1:
-                    _AI = new AIMedium(testHand);
+                    _AI = new AIMedium(MakeNewHand());
                     break;
                 case 2:
-                    _AI = new AIHard(testHand, Score);
+                    _AI = new AIHard(MakeNewHand());
                     break;
             }
         }
@@ -69,19 +69,25 @@ namespace Qwirkle
                 //Check Valid play in prolog
                 if (valid)
                 {
-                    _human.RemoveBlocksFromHand(play);
-                    Block[] fillhand = new Block[play.Count];
-                    for (int i = 0; i < play.Count; i++)
-                    {
-                        fillhand[i] = _board.GetBlock();
-                    }
-                    _human.FillHand(fillhand);
                     _board.updateBoard(play);
-                    //parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString()));
                     int humanScore = Score(play);
+                    if (humanScore == 0) // if play has gaps, prolog returns true. should be fixed
+                    {
+                        _board.RemovePlay(play);
+                        return false;
+                    }
+
                     _human.UpdateScore(humanScore);
+                    _human.RemoveBlocksFromHand(play);
+                    _human.FillHand(ReplaceUsedBlocks(play.Count));
+                   
+                    //parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString()));
+                    
                     //List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
                     List<Tuple<Block, int, int>> aiPlay = _AI.PlayOnGap(parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString())));
+                    _AI.RemoveBlocksFromHand(aiPlay);
+                    
+                    _AI.FillHand(ReplaceUsedBlocks(aiPlay.Count));
                     _board.updateBoard(aiPlay);
                     FireObserver(aiPlay);
                     return true;
@@ -195,12 +201,21 @@ namespace Qwirkle
 
             for (int i = 0; i < play.Count; i++)
             {
-                Block b = play[i].Item1;
-                returnString.Append(string.Format("tile({0},{1}),", b.Shape, b.Color));
+                Tuple<Block, int, int> tup = play[i];
+                returnString.Append(string.Format("play(space({0},{1}), tile({2},{3})),", tup.Item2, tup.Item3,  tup.Item1.Shape, tup.Item1.Color));
             }
             returnString.Remove(returnString.Length - 1, 1);
             returnString.Append("]");
             return returnString.ToString();
+        }
+        private Block[] ReplaceUsedBlocks(int count)
+        {
+            Block[] fillHand = new Block[count];
+            for (int i = 0; i < count; i++)
+            {
+                fillHand[i] = _board.GetBlock();
+            }
+            return fillHand;
         }
     }
 }

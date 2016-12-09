@@ -15,23 +15,30 @@ namespace Qwirkle
         {
         }
 
-        public override List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays)
+        public override List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays, ScorePlayDelegate scorePlay)
         {
-            int play = rnd.Next(0, plays.Count);
-            List<Tuple<string, string, int, int>> thePlay = plays[play];
-            List<Tuple<Block, int, int>> convertedPlay = new List<Tuple<Block, int, int>>();
-            for (int i = 0; i < thePlay.Count; i++)
+            List<Tuple<Block, int, int>> convertedPlay = null;
+            int score = 0;
+            while (score == 0)
             {
-                Block blockFromHand;
-                Tuple<string, string, int, int> hold = thePlay[i];
-                for(int k = 0; k < Hand.Length; k++)
+                int play = rnd.Next(0, plays.Count);
+                List<Tuple<string, string, int, int>> thePlay = plays[play];
+                convertedPlay = new List<Tuple<Block, int, int>>();
+                for (int i = 0; i < thePlay.Count; i++)
                 {
-                    if((Hand[k].Shape.ToString() == hold.Item1) && (Hand[k].Color.ToString() == hold.Item2))
+                    Block blockFromHand;
+                    Tuple<string, string, int, int> hold = thePlay[i];
+                    for (int k = 0; k < Hand.Length; k++)
                     {
-                        blockFromHand = Hand[k];
-                        convertedPlay.Add(new Tuple<Block, int, int>(blockFromHand, hold.Item3, hold.Item4));
+                        if ((Hand[k].Shape.ToString() == hold.Item1) && (Hand[k].Color.ToString() == hold.Item2))
+                        {
+                            blockFromHand = Hand[k];
+                            convertedPlay.Add(new Tuple<Block, int, int>(blockFromHand, hold.Item3, hold.Item4));
+                        }
                     }
                 }
+                score = scorePlay(convertedPlay);
+                plays.Remove(thePlay);
             }
             return convertedPlay;
         }

@@ -4,8 +4,6 @@
 	same shape different color
 	foreach play there must exist a word such that every letter in the play is in the word
 	foreach play every word made must be legal
-	
-	Include ability to dump?
 */ 
 
 xy(space(X, Y), X, Y).
@@ -198,47 +196,59 @@ omit(X,[H|L],[H|R]) :-
 
  
 /* Is Legal */ 
-isLegal(T) :- isSingleShape(T), !, isLegalShape(T), !. 
-isLegal(T) :- isSingleColor(T), !, isLegalColor(T), !.
+isLegal(T) :- isSingleColumn(T), !, isLegalTile(T), !.
+isLegal(T) :- isSingleRow(T), !, isLegalTile(T), !. 
+isLegalTile(T) :- isSingleShape(T), !, isLegalShape(T), !.
+isLegalTile(T) :- isSingleColor(T), !, isLegalColor(T), !.
+
 	
-isLegalColor([tile(S, _) | Rest]) :- 
+isLegalColor([play(space(_,_), tile(S, _)) | Rest]) :- 
 		notContainsShape(Rest, S),
 		!,
 		isLegalColor(Rest).
-isLegalColor([tile(S, _)]).
+isLegalColor([play(space(_,_), tile(S, _))]).
 isLegalColor([]).
 
-isLegalShape([tile(_, C) | Rest]) :-
+isLegalShape([play(space(_,_), tile(_, C)) | Rest]) :-
 		notContainsColor(Rest, C),
 		!,
 		isLegalShape(Rest).
-isLegalShape([tile(_, C)]).
+isLegalShape([play(space(_,_), tile(_, C))]).
 isLegalShape([]).
+
 		
 /* Contains */
-notContainsColor([tile(_, C)], Color) :-
+notContainsColor([play(space(_,_), tile(_, C))], Color) :-
 		C \= Color.
-notContainsColor([tile(_, C) | Rest], Color) :- 
+notContainsColor([play(space(_,_), tile(_, C)) | Rest], Color) :- 
 		C \= Color,
 		!,
 		notContainsColor(Rest, Color).
 
-notContainsShape([tile(S, _)], Shape) :-
+notContainsShape([play(space(_,_), tile(S, _))], Shape) :-
 		S \= Shape.
-notContainsShape([tile(S, _) | Rest], Shape) :- 
+notContainsShape([play(space(_,_), tile(S, _)) | Rest], Shape) :- 
 		S \= Shape,
 		!,
 		notContainsShape(Rest, Shape).
 		
 /* Single Type */
 isSingleColor([]).
-isSingleColor([tile(_, _)]) :- !.
-isSingleColor([tile(_, C1), tile(_, C2)]) :- C1 == C2.
-isSingleColor([tile(_, C1), tile(S2, C2) | Rest]) :- C1 == C2, !, isSingleColor([tile(S2,C2) | Rest]).
+isSingleColor([play(space(_,_), tile(_, _))]) :- !.
+isSingleColor([play(space(_,_), tile(_, C1)), play(space(_,_), tile(_, C2))]) :- C1 == C2.
+isSingleColor([play(space(_,_), tile(_, C1)), play(space(_,_), tile(S2, C2)) | Rest]) :- C1 == C2, !, isSingleColor([play(space(_,_), tile(S2,C2)) | Rest]).
 
 isSingleShape([]).
-isSingleShape([tile(_, _)]) :- !.
-isSingleShape([tile(S1, _), tile(S2, _)]) :- S1 == S2.
-isSingleShape([tile(S1, _), tile(S2, C2) | Rest]) :- S1 == S2, !, isSingleShape([tile(S2,C2) | Rest]).
+isSingleShape([play(space(_,_), tile(_, _))]) :- !.
+isSingleShape([play(space(_,_),tile(S1, _)), play(space(_,_),tile(S2, _))]) :- S1 == S2.
+isSingleShape([play(space(_,_),tile(S1, _)), play(space(_,_),tile(S2, C2)) | Rest]) :- S1 == S2, !, isSingleShape([play(space(_,_),tile(S2,C2)) | Rest]).
 
+isSingleRow([]).
+isSingleRow([play(space(X1,_), tile(_, _))]) :- !.
+isSingleRow([play(space(X1,_),tile(_, _)), play(space(X2,_),tile(_, _))]) :- X1 == X2.
+isSingleRow([play(space(X1,_),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Rest]) :- X1 == X2, !, isSingleRow([play(space(X2,Y2),tile(_,_)) | Rest]).
 
+isSingleColumn([]).
+isSingleColumn([play(space(_,Y1), tile(_, _))]) :- !.
+isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(_,Y2),tile(_, _))]) :- Y1 == Y2.
+isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Rest]) :- Y1 == Y2, !, isSingleColumn([play(space(X2,Y2),tile(_,_)) | Rest]).

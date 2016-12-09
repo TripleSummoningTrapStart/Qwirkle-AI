@@ -62,7 +62,7 @@ namespace Qwirkle
             int check2 = GameArea.GetLength(1);
             while ((yCheck >= 0 && xCheck >= 0) && (yCheck < GameArea.GetLength(0) && xCheck < GameArea.GetLength(1)) && GameArea[yCheck, xCheck] != null)
             {
-                
+
                 Block check = GameArea[yCheck, xCheck];
                 for (int i = 0; i < play.Count; i++)
                 {
@@ -82,13 +82,13 @@ namespace Qwirkle
         public string ConvertBoardToString()
         {
             StringBuilder returnString = new StringBuilder("[");
-            
-            for(int i = 0; i < GameArea.GetLength(0); i++)
+
+            for (int i = 0; i < GameArea.GetLength(0); i++)
             {
                 StringBuilder hold = new StringBuilder("[");
-                for(int k = 0; k < GameArea.GetLength(1); k++)
+                for (int k = 0; k < GameArea.GetLength(1); k++)
                 {
-                    if(GameArea[i,k] != null)
+                    if (GameArea[i, k] != null)
                     {
                         Block b = GameArea[i, k];
                         hold.Append(string.Format("play(space({0},{1}), tile({2},{3})),", i, k, b.Shape, b.Color));
@@ -96,7 +96,7 @@ namespace Qwirkle
                 }
                 hold.Remove(hold.Length - 1, 1);
                 hold.Append("],");
-                if(hold.Length > 2)
+                if (hold.Length > 2)
                 {
                     returnString.Append(hold.ToString());
                 }
@@ -105,14 +105,12 @@ namespace Qwirkle
             returnString.Append("]");
             return returnString.ToString();
         }
-        public bool WasExpanded()
+        public void RemovePlay(List<Tuple<Block, int, int>> play)
         {
-            if(_expanded)
+            foreach (Tuple<Block, int, int> t in play)
             {
-                _expanded = false;
-                return true;
+                GameArea[t.Item2, t.Item3] = null;
             }
-            return false;
         }
     }
 }

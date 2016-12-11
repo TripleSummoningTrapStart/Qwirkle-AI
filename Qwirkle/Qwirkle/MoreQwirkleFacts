@@ -6,11 +6,13 @@ xy(play(S, _), X, Y) :- xy(S, X, Y).
 x(S, X) :- xy(S, X, _).
 y(S, Y) :- xy(S, _, Y).
 
-b([_ | B], B).
-pcb([[P | C] | B], P, [C | B]).
 pc_b([[P | C] | B], P, C, B).
+pcb([[P | C] | B], P, [C | B]).
+
 p(B, P) :- pcb(B, P, _).
 cb(B, CB) :- pcb(B, _, CB).
+b([_ | B], B).
+
 pb(B, P, B2) :- pc_b(B, P, _, B2).
 
 delta(D, S, T, N) :-
@@ -25,15 +27,15 @@ spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
 isGap(S, B, N) :-
 	lookLeft(5, S, B, N).
 
+lookLeft(E, S, [], N) :- %board is empty
+	!,
+	lookLeft(E, -1, S, [], N).
+
 lookLeft(E, S, B, N) :-
 	p(B, P),
-	!,
 	delta(x, S, P, M),
 	lookLeft(E, M, S, B, N).
 	
-lookLeft(E, S, B, N) :-
-	lookUp(5, S, B, N).
-
 lookLeft(0, 0, S, B, N) :-
 	!,
 	lookUp(5, S, B, N).
@@ -62,7 +64,7 @@ lookLeft(E, M, S, B, [S2 | N]) :- %too close but on board
 	isSpace(X2, Y, S2),
 	lookLeft(E2, M, S, B, N).
 
-lookLeft(E, M, S, B, N) :- %too close and not on board
+lookLeft(E, M, S, B, [[] | N]) :- %too close and not on board
 	E2 is E - 1,
 	lookLeft(E2, M, S, B, N).
 	
@@ -143,7 +145,7 @@ lookUp(E, M, S, B, [S2 | N]):- %we passed a up neightbor, time to put in a blank
 	isSpace(X, Y2, S2),
 	lookUp(E2, M, S, B, N).
 
-lookUp(E, M, S, B, N) :- %too close and not on board
+lookUp(E, M, S, B, [[] | N]) :- %too close and not on board
 	E2 is E - 1,
 	lookUp(E2, M, S, B, N).
 
@@ -182,3 +184,8 @@ gaps(S, N) :-
 	isSpace(X, Y, S),
 	sample(B),
 	isGap(S, B, N).
+	
+gapsC(S) :-
+	gaps(S, N),
+	length(N, L),
+	not(L is 10).

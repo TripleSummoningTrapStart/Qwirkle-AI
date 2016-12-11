@@ -1,0 +1,184 @@
+isSpace(X, Y, space(X, Y)).
+
+xy(space(X, Y), X, Y).
+xy(play(S, _), X, Y) :- xy(S, X, Y).
+
+x(S, X) :- xy(S, X, _).
+y(S, Y) :- xy(S, _, Y).
+
+b([_ | B], B).
+pcb([[P | C] | B], P, [C | B]).
+pc_b([[P | C] | B], P, C, B).
+p(B, P) :- pcb(B, P, _).
+cb(B, CB) :- pcb(B, _, CB).
+pb(B, P, B2) :- pc_b(B, P, _, B2).
+
+delta(D, S, T, N) :-
+	call(D, S, C1),
+	call(D, T, C2),
+	N is C1 - C2.
+	
+spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
+	between(Xmin, Xmax, X),
+	between(Ymin, Ymax, Y).
+	
+isGap(S, B, N) :-
+	lookLeft(5, S, B, N).
+
+lookLeft(E, S, B, N) :-
+	p(B, P),
+	!,
+	delta(x, S, P, M),
+	lookLeft(E, M, S, B, N).
+	
+lookLeft(E, S, B, N) :-
+	lookUp(5, S, B, N).
+
+lookLeft(0, 0, S, B, N) :-
+	!,
+	lookUp(5, S, B, N).
+	
+lookLeft(0, _, S, B, N) :-
+	!,
+	lookUp(5, S, [[]|B], N).
+	
+lookLeft(E, E, S, B, N) :-
+	!,
+	lookNearLeft(E, S, B, N).
+	
+lookLeft(E, M, S, B, N) :-
+	M > E, %skip the column
+	!,
+	M2 is M - 1,
+	b(B, B2),
+	lookLeft(E, M2, S, B2, N).
+	
+lookLeft(E, M, S, B, [S2 | N]) :- %too close but on board
+	xy(S, X, Y),
+	X2 is X - E,
+	X2 >= 0,
+	!,
+	E2 is E - 1,% this guy is out of order, but should be delayed until after the cut
+	isSpace(X2, Y, S2),
+	lookLeft(E2, M, S, B, N).
+
+lookLeft(E, M, S, B, N) :- %too close and not on board
+	E2 is E - 1,
+	lookLeft(E2, M, S, B, N).
+	
+lookNearLeft(0, S, B, N) :-
+	!,
+	lookUp(5, S, B, N).
+	
+lookNearLeft(E, S, [], N) :- %board is empty, but we need to pick left neighbors
+	!,
+	lookNearLeft(E, -1, S, [[]], N).
+	
+lookNearLeft(E, S, B, N) :- %we are in the correct column and we need to see how far down to look
+	p(B, P),
+	!,
+	delta(y, S, P, D),
+	lookNearLeft(E, D, S, B, N).%we have found the distance to the next point
+	
+lookNearLeft(E, S, B, N) :- %the column is empty
+	lookNearLeft(E, -1, S, B, N).
+	
+lookNearLeft(E, 0, S, B, [P | N]) :-
+	!,
+	E2 is E - 1,
+	pb(B, P, B2),
+	lookLeft(E2, S, B2, N).
+	
+lookNearLeft(E, M, S, B, N) :-
+	M > 0,
+	!,
+	cb(B, CB),
+	lookNearLeft(E, S, CB, N).
+
+lookNearLeft(E, _, S, B, [S2 | N]):- %we passed a left neightbor, time to put in a blank
+	E2 is E - 1,
+	b(B, B2),
+	xy(S, X, Y),
+	X2 is X - E,
+	isSpace(X2, Y, S2),
+	lookNearLeft(E2, S, B2, N).
+
+
+lookUp(0, S, B, N) :- 
+	!,
+	lookCenter(S, B, N).
+	
+lookUp(E, S, B, N) :-
+%	trace,
+	p(B, P),
+	!,
+	delta(y, S, P, M),
+	lookUp(E, M, S, B, N).
+	
+lookUp(E, S, B, N) :-
+	lookUp(E, -1, S, B, N).
+	
+lookUp(0, _, S, B, N) :- 
+	!,
+	lookCenter(S, B, N).
+	
+lookUp(E, E, S, B, [P | N]) :-
+	!,
+	E2 is E - 1,%look 1 closer
+	pcb(B, P, CB),
+	lookUp(E2, S, CB, N).
+	
+lookUp(E, M, S, B, N) :-
+	M > E, %skip play
+	!,
+	cb(B, CB),
+	lookUp(E, S, CB, N).% don't know how close so we have to remeasure
+
+lookUp(E, M, S, B, [S2 | N]):- %we passed a up neightbor, time to put in a blank
+	xy(S, X, Y),
+	Y2 is Y - E,
+	Y2 >= 0,
+	!,
+	E2 is E - 1,
+	isSpace(X, Y2, S2),
+	lookUp(E2, M, S, B, N).
+
+lookUp(E, M, S, B, N) :- %too close and not on board
+	E2 is E - 1,
+	lookUp(E2, M, S, B, N).
+
+lookCenter(S, B, []) :-
+	p(B, P),
+	xy(S, X, Y),
+	not(xy(P, X, Y)),
+	!.
+	
+lookCenter(_, B, []) :-
+	not(p(B, _)).
+	
+	
+sample(
+	[[play(space(1,11), tile(cross,yellow))],
+	[play(space(2,11), tile(cross,orange)),play(space(2,15), tile(circle,yellow))],
+	[play(space(3,11), tile(cross,purple)),play(space(3,13), tile(clover,green)),play(space(3,15), tile(circle,blue))],
+	[play(space(4,11), tile(cross,green)),play(space(4,13), tile(clover,purple)),play(space(4,15), tile(circle,green))],
+	[play(space(5,10), tile(diamond,red)),play(space(5,11), tile(cross,red)),play(space(5,12), tile(star,red)),play(space(5,13), tile(clover,red)),play(space(5,15), tile(circle,red)),play(space(5,16), tile(star,red)),play(space(5,17), tile(cross,red))],
+	[play(space(6,10), tile(diamond,blue)),play(space(6,12), tile(star,orange)),play(space(6,13), tile(clover,orange)),play(space(6,14), tile(square,orange)),play(space(6,15), tile(circle,orange)),play(space(6,17), tile(cross,green))],
+	[play(space(7,11), tile(diamond,blue)),play(space(7,12), tile(star,blue)),play(space(7,14), tile(square,green))],
+	[play(space(8,12), tile(star,green)),play(space(8,13), tile(cross,green)),play(space(8,17), tile(diamond,blue))],
+	[play(space(9,13), tile(cross,orange)),play(space(9,14), tile(clover,orange)),play(space(9,15), tile(circle,orange)),play(space(9,16), tile(square,orange)),play(space(9,17), tile(diamond,orange))],
+	[play(space(10,16), tile(square,green))],
+	[play(space(11,16), tile(square,red)),play(space(11,17), tile(clover,red))]
+]).
+
+stencils(U, D) :-
+	between(0, 5, U),
+	T is 5 - U,
+	between(0, T, D).
+	
+gaps(S, N) :-
+	between(0, 15, X),
+	between(0, 29, Y),
+	isSpace(X, Y, S),
+	sample(B),
+	isGap(S, B, N).

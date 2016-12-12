@@ -1,4 +1,5 @@
 isSpace(X, Y, space(X, Y)).
+isPlay(play(_,T), T).
 
 xy(space(X, Y), X, Y).
 xy(play(S, _), X, Y) :- xy(S, X, Y).
@@ -24,11 +25,11 @@ spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
 	between(Xmin, Xmax, X),
 	between(Ymin, Ymax, Y).
 	
-isGap(S, B, [tuple(left, [N5, N4, N3, N2, N1]), tuple(up, [N10, N9, N8, N7, N6]),tuple(down, [N11, N12, N13, N14, N15]), tuple(right, [N16, N17, N18, N19, N20])]) :-
-	lookLeft(5, S, B, [	N1 , N2 , N3 , N4 , N5,%left
+isGap(S, B, [[N6, N5, N4, N3, N2, N1], [N12, N11, N10, N9, N8, N7], [N13, N14, N15, N16, N17, N18], [N19, N20, N21, N22, N23, N24]]) :-
+	lookLeft(6, S, B, [	N1 , N2 , N3 , N4 , N5,%left
 						N6 , N7 , N8 , N9 , N10,%up
 						N11, N12, N13, N14, N15,%down
-						N16, N17, N18, N19, N20]).%right
+						N16, N17, N18, N19, N20, N21, N22, N23, N24]).%right
 
 lookLeft(E, S, B, N) :- %column would not be empty
 	p(B, P),
@@ -41,12 +42,12 @@ lookLeft(E, S, B, N) :- %board is empty
 
 lookLeft(0, 0, S, B, N) :- %expected to find the actual column and found it
 	!,
-	lookUp(5, S, B, N).
+	lookUp(6, S, B, N).
 	
 lookLeft(0, _, S, B, N) :- %expected to find the actual coumn but it is not there
-	% go to up and just find 5 blanks
+	% go to up and just find 6 blanks
 	!,
-	lookUp(5, S, [[]|B], N).
+	lookUp(6, S, [[]|B], N).
 	
 lookLeft(E, E, S, B, N) :-
 	!,
@@ -74,7 +75,7 @@ lookLeft(E, M, S, B, [[] | N]) :- %too close and not on board
 	
 lookNearLeft(0, S, B, N) :-
 	!,
-	lookUp(5, S, B, N).
+	lookUp(6, S, B, N).
 	
 lookNearLeft(E, S, [], N) :- %board is empty, but we need to pick left neighbors
 	!,
@@ -161,7 +162,7 @@ lookCenter(S, B, N) :-
 	
 lookCenter(S, B, N) :-
 	not(p(B, _)),
-	lookDown(1, 6, S, B, N).
+	lookDown(1, 7, S, B, N).
 	
 lookDown(E, S, B, N) :-
 	p(B, P),
@@ -170,14 +171,14 @@ lookDown(E, S, B, N) :-
 	lookDown(E, M, S, B, N).
 
 lookDown(E, S, B, N) :- %column is missing or blank
-	lookDown(E, 6, S, B, N).
+	lookDown(E, 7, S, B, N).
 
-lookDown(6, _, S, B, N) :- 
+lookDown(7, _, S, B, N) :- 
 	b(B, B2), %lose the column
 	!,
 	lookRight(1, S, B2, N).
 	
-lookDown(6, _, S, B, N) :- %board is empty
+lookDown(7, _, S, B, N) :- %board is empty
 	!,
 	lookRight(1, S, B, N).
 	
@@ -207,9 +208,9 @@ lookRight(E, S, B, N) :-
 	lookRight(E, M, S, B, N).
 	
 lookRight(E, S, B, N) :-%p failed
-	lookRight(E, 6, S, B, N).
+	lookRight(E, 7, S, B, N).
 	
-lookRight(6, _, _, _, []) :- !. %done bitches
+lookRight(7, _, _, _, []) :- !. %done, bitches !
 
 lookRight(E, E, S, B, N) :-
 	!,
@@ -218,7 +219,7 @@ lookRight(E, E, S, B, N) :-
 lookRight(E, M, S, B, [S2 | N]) :-
 	xy(S, X, Y),
 	X2 is X + E,
-	X2 =< 29,
+	X2 =< 15,
 	!,
 	E2 is E + 1,
 	isSpace(X2, Y, S2),
@@ -257,6 +258,62 @@ lookNearRight(E, _, S, B, [S2 | N]) :-
 	isSpace(X2, Y, S2),
 	lookRight(E2, S, B2, N).
 
+	
+trimDirection(_, []) :- !.	
+
+trimDirection([P | L], [T | S]) :-
+	isPlay(P, T),
+	!,
+	trimDirection(L, S).
+	
+secondFromTuple(tuple(_, X), X).
+	
+trimNeighbors(gap(S, FS), gap(S, IS)) :- %full spoke, immediate spoke
+	mutateList(trimDirection, FS, IS).
+
+mutateList(_, [], []) :- !.
+
+mutateList(G, [A|B], [C|D]) :-
+	call(G, A, C),
+	mutateList(G, B, D).
+	
+megaGoal(B, L2) :-
+	findall(gap(S, N), gaps(S, B, N), L),
+	trace,
+	mutateList(trimNeighbors, L, L2),
+	trace,
+	seethelist(L2).
+	%trace,
+	%filter(testSpokes, L2, L3).
+	
+	
+seethelist([]).
+seethelist([G | L1]) :-
+	seegap(G),
+	seethelist(L1).
+	
+seegap(gap(_, [])).
+seegap(gap(S, [H1 | T1])) :-
+	seegap(gap(S, T1)).
+	
+filter(_, [], []).
+filter(G, [H1 | T1], [H1 | T2]) :- 
+	call(G, H1),
+	!,
+	filter(G, T1, T2).
+filter(G, [H1 | T1], T2) :-
+	not(call(G, H1)),
+	!,
+	filter(G, T1, T2).
+
+testSpokes(gap(_, [L, U, D, R])) :-
+	isLegal([L | R]),
+	isLegal([U | D]).
+
+	%sample(B), isGap(space(4,12), B, N), member(tuple(_, M), N), adjacentPlays(M, S).	
+	
+
+	
 sample(
 	[[play(space(1,11), tile(cross,yellow))],
 	[play(space(2,11), tile(cross,orange)),play(space(2,15), tile(circle,yellow))],
@@ -276,14 +333,66 @@ stencils(U, D) :-
 	T is 5 - U,
 	between(0, T, D).
 	
-gaps(S, N) :-
+gaps(S, B, N) :-
 	between(0, 15, X),
 	between(0, 29, Y),
 	isSpace(X, Y, S),
-	sample(B),
 	isGap(S, B, N).
 	
-gapsC(S) :-
-	gaps(S, N),
-	length(N, L),
-	L is 20.
+/* Is Legal */ 
+isLegal(T) :- isSingleColumn(T), !, isLegalTile(T), !.
+isLegal(T) :- isSingleRow(T), !, isLegalTile(T), !. 
+isLegalTile(T) :- isSingleShape(T), !, isLegalShape(T), !.
+isLegalTile(T) :- isSingleColor(T), !, isLegalColor(T), !.
+
+	
+isLegalColor([play(space(_,_), tile(S, _)) | Rest]) :- 
+		notContainsShape(Rest, S),
+		!,
+		isLegalColor(Rest).
+isLegalColor([play(space(_,_), tile(_, _))]).
+isLegalColor([]).
+
+isLegalShape([play(space(_,_), tile(_, C)) | Rest]) :-
+		notContainsColor(Rest, C),
+		!,
+		isLegalShape(Rest).
+isLegalShape([play(space(_,_), tile(_, _))]).
+isLegalShape([]).
+
+		
+/* Contains */
+notContainsColor([play(space(_,_), tile(_, C))], Color) :-
+		C \= Color.
+notContainsColor([play(space(_,_), tile(_, C)) | Rest], Color) :- 
+		C \= Color,
+		!,
+		notContainsColor(Rest, Color).
+
+notContainsShape([play(space(_,_), tile(S, _))], Shape) :-
+		S \= Shape.
+notContainsShape([play(space(_,_), tile(S, _)) | Rest], Shape) :- 
+		S \= Shape,
+		!,
+		notContainsShape(Rest, Shape).
+		
+/* Single Type */
+isSingleColor([]).
+isSingleColor([play(space(_,_), tile(_, _))]) :- !.
+isSingleColor([play(space(_,_), tile(_, C1)), play(space(_,_), tile(_, C2))]) :- C1 == C2.
+isSingleColor([play(space(_,_), tile(_, C1)), play(space(_,_), tile(S2, C2)) | Rest]) :- C1 == C2, !, isSingleColor([play(space(_,_), tile(S2,C2)) | Rest]).
+
+isSingleShape([]).
+isSingleShape([play(space(_,_), tile(_, _))]) :- !.
+isSingleShape([play(space(_,_),tile(S1, _)), play(space(_,_),tile(S2, _))]) :- S1 == S2.
+isSingleShape([play(space(_,_),tile(S1, _)), play(space(_,_),tile(S2, C2)) | Rest]) :- S1 == S2, !, isSingleShape([play(space(_,_),tile(S2,C2)) | Rest]).
+
+isSingleRow([]).
+isSingleRow([play(space(_,_), tile(_, _))]) :- !.
+isSingleRow([play(space(X1,_),tile(_, _)), play(space(X2,_),tile(_, _))]) :- X1 == X2.
+isSingleRow([play(space(X1,_),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Rest]) :- X1 == X2, !, isSingleRow([play(space(X2,Y2),tile(_,_)) | Rest]).
+
+isSingleColumn([]).
+isSingleColumn([play(space(_,_), tile(_, _))]) :- !.
+isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(_,Y2),tile(_, _))]) :- Y1 == Y2.
+isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Rest]) :- Y1 == Y2, !, isSingleColumn([play(space(X2,Y2),tile(_,_)) | Rest]).

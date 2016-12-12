@@ -24,8 +24,11 @@ spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
 	between(Xmin, Xmax, X),
 	between(Ymin, Ymax, Y).
 	
-isGap(S, B, N) :-
-	lookLeft(5, S, B, N).
+isGap(S, B, [tuple(left, [N5, N4, N3, N2, N1]), tuple(up, [N10, N9, N8, N7, N6]),tuple(down, [N11, N12, N13, N14, N15]), tuple(right, [N16, N17, N18, N19, N20])]) :-
+	lookLeft(5, S, B, [	N1 , N2 , N3 , N4 , N5,%left
+						N6 , N7 , N8 , N9 , N10,%up
+						N11, N12, N13, N14, N15,%down
+						N16, N17, N18, N19, N20]).%right
 
 lookLeft(E, S, B, N) :- %column would not be empty
 	p(B, P),
@@ -278,8 +281,7 @@ gaps(S, N) :-
 	between(0, 29, Y),
 	isSpace(X, Y, S),
 	sample(B),
-	isGap(S, B, N),
-	length(N, 20).
+	isGap(S, B, N).
 	
 gapsC(S) :-
 	gaps(S, N),

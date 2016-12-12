@@ -31,16 +31,17 @@ lookLeft(E, S, [], N) :- %board is empty
 	!,
 	lookLeft(E, -1, S, [], N).
 
-lookLeft(E, S, B, N) :-
+lookLeft(E, S, B, N) :- %column would not be empty
 	p(B, P),
 	delta(x, S, P, M),
 	lookLeft(E, M, S, B, N).
 	
-lookLeft(0, 0, S, B, N) :-
+lookLeft(0, 0, S, B, N) :- %expected to find the actual column and found it
 	!,
 	lookUp(5, S, B, N).
 	
-lookLeft(0, _, S, B, N) :-
+lookLeft(0, _, S, B, N) :- %expected to find the actual coumn but it is not there
+	% go to up and just find 5 blanks
 	!,
 	lookUp(5, S, [[]|B], N).
 	
@@ -117,7 +118,7 @@ lookUp(E, S, B, N) :-
 	delta(y, S, P, M),
 	lookUp(E, M, S, B, N).
 	
-lookUp(E, S, B, N) :-
+lookUp(E, S, B, N) :- %this means that p(B, _) fails
 	lookUp(E, -1, S, B, N).
 	
 lookUp(0, _, S, B, N) :- 
@@ -149,15 +150,46 @@ lookUp(E, M, S, B, [[] | N]) :- %too close and not on board
 	E2 is E - 1,
 	lookUp(E2, M, S, B, N).
 
-lookCenter(S, B, []) :-
+lookCenter(S, B, N) :-
 	p(B, P),
 	xy(S, X, Y),
 	not(xy(P, X, Y)),
-	!.
+	!,
+	lookDown(1, S, B, N).
 	
-lookCenter(_, B, []) :-
-	not(p(B, _)).
+lookCenter(S, B, N) :-
+	not(p(B, _)),
+	lookDown(1, 6, S, B, N).
 	
+lookDown(E, S, B, N) :-
+	p(B, P),
+	!,
+	delta(y, P, S, M),
+	lookDown(E, M, S, B, N).
+
+lookDown(E, S, B, N) :- %column is missing or blank
+	lookDown(E, 6, S, B, N).
+
+lookDown(6, _, S, B, []) :- !.
+	
+lookDown(E, E, S, B, [P | N]) :-
+	!,
+	E2 is E + 1, %look a farther
+	pcb(B, P, CB),
+	lookDown(E2, S, CB, N).
+
+lookDown(E, M, S, B, [S2 | N]) :- %measurement is gaurenteed to not be less than expected
+	xy(S, X, Y),
+	Y2 is Y + E,
+	Y2 =< 29,
+	!,
+	E2 is E + 1,
+	isSpace(X, Y2, S2),
+	lookDown(E2, M, S, B, N).
+	
+lookDown(E, M, S, B, [[] | N]) :- %so this happens if the last down neighbors need to be []	
+	E2 is E + 1,
+	lookDown(E2, M, S, B, N).
 	
 sample(
 	[[play(space(1,11), tile(cross,yellow))],
@@ -183,9 +215,10 @@ gaps(S, N) :-
 	between(0, 29, Y),
 	isSpace(X, Y, S),
 	sample(B),
-	isGap(S, B, N).
+	isGap(S, B, N),
+	length(N, 15).
 	
 gapsC(S) :-
 	gaps(S, N),
 	length(N, L),
-	not(L is 10).
+	L is 15.

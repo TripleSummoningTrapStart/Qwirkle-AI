@@ -27,15 +27,15 @@ spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
 isGap(S, B, N) :-
 	lookLeft(5, S, B, N).
 
-lookLeft(E, S, [], N) :- %board is empty
-	!,
-	lookLeft(E, -1, S, [], N).
-
 lookLeft(E, S, B, N) :- %column would not be empty
 	p(B, P),
+	!,
 	delta(x, S, P, M),
 	lookLeft(E, M, S, B, N).
 	
+lookLeft(E, S, B, N) :- %board is empty
+	lookLeft(E, -1, S, B, N).
+
 lookLeft(0, 0, S, B, N) :- %expected to find the actual column and found it
 	!,
 	lookUp(5, S, B, N).
@@ -80,8 +80,8 @@ lookNearLeft(E, S, [], N) :- %board is empty, but we need to pick left neighbors
 lookNearLeft(E, S, B, N) :- %we are in the correct column and we need to see how far down to look
 	p(B, P),
 	!,
-	delta(y, S, P, D),
-	lookNearLeft(E, D, S, B, N).%we have found the distance to the next point
+	delta(y, S, P, M),
+	lookNearLeft(E, M, S, B, N).%we have found the distance to the next point
 	
 lookNearLeft(E, S, B, N) :- %the column is empty
 	lookNearLeft(E, -1, S, B, N).
@@ -112,7 +112,6 @@ lookUp(0, S, B, N) :-
 	lookCenter(S, B, N).
 	
 lookUp(E, S, B, N) :-
-%	trace,
 	p(B, P),
 	!,
 	delta(y, S, P, M),
@@ -170,7 +169,10 @@ lookDown(E, S, B, N) :-
 lookDown(E, S, B, N) :- %column is missing or blank
 	lookDown(E, 6, S, B, N).
 
-lookDown(6, _, S, B, []) :- !.
+lookDown(6, _, S, B, N) :- 
+	!,
+	b(B, B2), %lose the column
+	lookRight(1, S, B2, N).
 	
 lookDown(E, E, S, B, [P | N]) :-
 	!,
@@ -191,6 +193,60 @@ lookDown(E, M, S, B, [[] | N]) :- %so this happens if the last down neighbors ne
 	E2 is E + 1,
 	lookDown(E2, M, S, B, N).
 	
+lookRight(E, S, B, N) :-
+	p(B, P),
+	!,
+	delta(x, P, S, M),
+	lookRight(E, M, S, B, N).
+	
+lookRight(E, S, B, N) :-%p failed
+	lookRight(E, 6, S, B, N).
+	
+lookRight(6, _, _, _, []) :- !. %done bitches
+
+lookRight(E, E, S, B, N) :-
+	!,
+	lookNearRight(E, S, B, N).
+	
+lookRight(E, M, S, B, [S2 | N]) :-
+	xy(S, X, Y),
+	X2 is X + E,
+	X2 =< 29,
+	!,
+	E2 is E + 1,
+	isSpace(X2, Y, S2),
+	lookRight(E2, M, S, B, N).
+
+lookRight(E, M, S, B, [[] | N]) :-
+	E2 is E + 1,
+	lookRight(E2, M, S, B, N).
+	
+lookNearRight(E, S, B, N) :-
+	p(B, P),
+	!,% the column exists and is not empty
+	delta(y, S, P, M),
+	lookNearRight(E, M, S, B, N).
+
+lookNearRight(E, 0, S, B, [P | N]) :-
+	!,
+	E2 is E + 1,
+	pb(B, P, B2),
+	lookRight(E2, S, B2, N).
+
+lookNearRight(E, M, S, B, N) :-
+	M > 0,
+	!,
+	cb(B, CB),
+	lookNearRight(E, S, CB, N).
+	
+lookNearRight(E, _, S, B, [S2 | N]) :-
+	E2 is E + 1,
+	b(B, B2),
+	xy(S, X, Y),
+	X2 is X + E,
+	isSpace(X2, Y, S2),
+	lookRight(E2, S, B2, N).
+
 sample(
 	[[play(space(1,11), tile(cross,yellow))],
 	[play(space(2,11), tile(cross,orange)),play(space(2,15), tile(circle,yellow))],
@@ -221,4 +277,4 @@ gaps(S, N) :-
 gapsC(S) :-
 	gaps(S, N),
 	length(N, L),
-	L is 15.
+	L is 20.

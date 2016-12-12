@@ -170,9 +170,13 @@ lookDown(E, S, B, N) :- %column is missing or blank
 	lookDown(E, 6, S, B, N).
 
 lookDown(6, _, S, B, N) :- 
-	!,
 	b(B, B2), %lose the column
+	!,
 	lookRight(1, S, B2, N).
+	
+lookDown(6, _, S, B, N) :- %board is empty
+	!,
+	lookRight(1, S, B, N).
 	
 lookDown(E, E, S, B, [P | N]) :-
 	!,
@@ -227,6 +231,9 @@ lookNearRight(E, S, B, N) :-
 	delta(y, S, P, M),
 	lookNearRight(E, M, S, B, N).
 
+lookNearRight(E, S, B, N) :- % p fails	
+	lookNearRight(E, -1, S, B, N).
+	
 lookNearRight(E, 0, S, B, [P | N]) :-
 	!,
 	E2 is E + 1,
@@ -272,7 +279,7 @@ gaps(S, N) :-
 	isSpace(X, Y, S),
 	sample(B),
 	isGap(S, B, N),
-	length(N, 15).
+	length(N, 20).
 	
 gapsC(S) :-
 	gaps(S, N),

@@ -33,10 +33,10 @@ namespace Qwirkle
                     _AI = new AIEasy(MakeNewHand());
                     break;
                 case 1:
-                    _AI = new AIMedium(MakeNewHand());
+                    //_AI = new AIMedium(MakeNewHand());
                     break;
                 case 2:
-                    _AI = new AIHard(MakeNewHand());
+                    //_AI = new AIHard(MakeNewHand());
                     break;
             }
         }
@@ -84,10 +84,10 @@ namespace Qwirkle
                     //parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString()));
 
                     //List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
-                    List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(_prolog.GetMoves(_board.ConvertBoardToString(), _AI.HandString())), Score);
+                    List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(_prolog.GetMoves(_board.ConvertBoardToString(), _AI.HandString())));
                     _AI.RemoveBlocksFromHand(aiPlay);
-                    
                     _AI.FillHand(ReplaceUsedBlocks(aiPlay.Count));
+                    _AI.UpdateScore(Score(aiPlay));
                     _board.updateBoard(aiPlay);
                     FireObserver(aiPlay);
                     return true;

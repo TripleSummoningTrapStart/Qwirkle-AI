@@ -56,7 +56,7 @@ namespace Qwirkle
             hold.Append("]");
             return hold.ToString();
         }
-        public abstract List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays, ScorePlayDelegate scorePlay);
+        public abstract List<Tuple<Block, int, int>> DeterminePlay(List<List<Tuple<string, string, int, int>>> plays);
         public abstract List<Tuple<Block, int, int>> PlayOnGap(List<Tuple<int, int>> gaps);
     }
 }

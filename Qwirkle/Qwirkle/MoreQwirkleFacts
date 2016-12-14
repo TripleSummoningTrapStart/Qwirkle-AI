@@ -24,13 +24,9 @@ delta(D, S, T, N) :-
 spaces(Xmin, Xmax, Ymin, Ymax, space(X, Y)) :-
 	between(Xmin, Xmax, X),
 	between(Ymin, Ymax, Y).
-	
-isGap(S, B, [[N6, N5, N4, N3, N2, N1], [N12, N11, N10, N9, N8, N7], [N13, N14, N15, N16, N17, N18], [N19, N20, N21, N22, N23, N24]]) :-
-	lookLeft(6, S, B, [	N1 , N2 , N3 , N4 , N5,%left
-						N6 , N7 , N8 , N9 , N10,%up
-						N11, N12, N13, N14, N15,%down
-						N16, N17, N18, N19, N20, N21, N22, N23, N24]).%right
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
 lookLeft(E, S, B, N) :- %column would not be empty
 	p(B, P),
 	!,
@@ -109,7 +105,6 @@ lookNearLeft(E, _, S, B, [S2 | N]):- %we passed a left neightbor, time to put in
 	X2 is X - E,
 	isSpace(X2, Y, S2),
 	lookNearLeft(E2, S, B2, N).
-
 
 lookUp(0, S, B, N) :- 
 	!,
@@ -258,63 +253,149 @@ lookNearRight(E, _, S, B, [S2 | N]) :-
 	isSpace(X2, Y, S2),
 	lookRight(E2, S, B2, N).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-trimDirection(_, []) :- !.	
-
-trimDirection([P | L], [T | S]) :-
+trimSpoke([P | L], [T | S]) :-
 	isPlay(P, T),
 	!,
-	trimDirection(L, S).
+	trimSpoke(L, S).
 	
-secondFromTuple(tuple(_, X), X).
-	
-trimNeighbors(gap(S, FS), gap(S, IS)) :- %full spoke, immediate spoke
-	mutateList(trimDirection, FS, IS).
+trimSpoke(_, []).	
 
-mutateList(_, [], []) :- !.
+isEmpty([]).
 
-mutateList(G, [A|B], [C|D]) :-
-	call(G, A, C),
-	mutateList(G, B, D).
+sum(A, B, C) :- C is A + B.
+
+counts(TS, ShapeCount, ColorCount) :-
+	maplist(shapeAndColor, TS, Shapes, Colors),%maps TS into two other lists
+	foldl(distinct,Shapes, [], DShapes),
+	foldl(distinct,Colors, [], DColors),
+	length(DShapes, ShapeCount),
+	length(DColors, ColorCount).
+
+isLegal([]) :- !.
+
+isLegal(TS) :-
+	counts(TS, ShapeCount, ColorCount),
+	length(TS, TileCount),
+	isLegal(TileCount, ShapeCount, ColorCount).
 	
-megaGoal(B, L2) :-
-	findall(gap(S, N), gaps(S, B, N), L),
-	trace,
-	mutateList(trimNeighbors, L, L2),
-	trace,
-	seethelist(L2).
-	%trace,
-	%filter(testSpokes, L2, L3).
+isLegal(T, 1, T) :- !.
+
+isLegal(T, T, 1).
+
+shapeAndColor(tile(S, C), S, C).
+
+shape(tile(S, _), S).
+color(tile(_, C), C).
+
+distinct(A, DAS, [A | DAS]) :-
+	not(member(A, DAS)),
+	!.
 	
+distinct(_, DAS, DAS).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-seethelist([]).
-seethelist([G | L1]) :-
-	seegap(G),
-	seethelist(L1).
+isGap(S, B, [Left1, Up1, Down1, Right1], AllowedTiles) :-
+	between(0, 15, X),
+	between(0, 29, Y),
+	S = space(X, Y),
+	lookLeft(6, S, B, [	N1 , N2 , N3 , N4 , N5, N6,
+						N7 , N8 , N9 , N10, N11, N12,
+						N13, N14, N15, N16, N17, N18,
+						N19, N20, N21, N22, N23, N24]),
+	Left1	=	[N6 , N5 , N4 , N3 , N2 , N1],
+	Up1		=	[N12, N11, N10, N9 , N8 , N7],
+	Down1	=	[N13, N14, N15, N16, N17, N18],
+	Right1	=	[N19, N20, N21, N22, N23, N24],
+	trimSpoke(Left1, Left2),
+	trimSpoke(Up1, Up2),
+	trimSpoke(Down1, Down2),
+	trimSpoke(Right1, Right2),
+	Spokes2 = [Left2, Up2, Down2, Right2],
+	exclude(isEmpty, Spokes2, Spokes3),
+	not(isEmpty(Spokes3)),% not yonder
+	append(Left2, Right2, Horizontal),
+	isLegal(Horizontal),
+	append(Up2, Down2, Vertical),
+	isLegal(Vertical), %not dead space 1 because it touches a play
+	maplist(allowedTiles, Spokes3, [FirstSpoke | RestOfThem]),
+	foldl(intersection, RestOfThem, FirstSpoke, AllowedTiles),
+	length(AllowedTiles, L),
+	L > 0.
+	 
+allShapes([cross, clover, square, diamond, circle, star]).
+allColors([red, orange, yellow, green, blue, purple]).
+	 
+allowedTiles(Spoke, AllowedTiles) :-
+	counts(Spoke, ShapeCount, ColorCount),
+	allowedTilesSameShape(Spoke, ShapeCount, ColorCount, SameShape),
+	allowedTilesSameColor(Spoke, ShapeCount, ColorCount, SameColor),
+	append(SameShape, SameColor, AllowedTiles).
 	
-seegap(gap(_, [])).
-seegap(gap(S, [H1 | T1])) :-
-	seegap(gap(S, T1)).
-	
-filter(_, [], []).
-filter(G, [H1 | T1], [H1 | T2]) :- 
-	call(G, H1),
+allowedTilesSameShape([tile(S, C1) | Spokes], 1, _, SameShape) :-
 	!,
-	filter(G, T1, T2).
-filter(G, [H1 | T1], T2) :-
-	not(call(G, H1)),
+	maplist(color, [tile(S, C1) | Spokes], Colors),
+	allColors(AllColors),
+	difference(AllColors, Colors, MissingColors),
+	assert(curry(C2, tile(S, C2))), 
+	maplist(curry, MissingColors, SameShape),
+	retract(curry(_,_)).
+	
+allowedTilesSameShape(_,_,_,[]).
+	
+allowedTilesSameColor([tile(S1, C) | Spokes], _, 1, SameColor) :-
 	!,
-	filter(G, T1, T2).
-
-testSpokes(gap(_, [L, U, D, R])) :-
-	isLegal([L | R]),
-	isLegal([U | D]).
-
-	%sample(B), isGap(space(4,12), B, N), member(tuple(_, M), N), adjacentPlays(M, S).	
+	maplist(shape, [tile(S1, C) | Spokes], Shapes),
+	allShapes(AllShapes),
+	difference(AllShapes, Shapes, MissingShapes),
+	assert(curry(S2, tile(S2, C))), 
+	maplist(curry, MissingShapes, SameColor),
+	retract(curry(_,_)).
 	
+allowedTilesSameColor(_,_,_,[]).
+
+intersection([X | XS], YS, [X | ZS]) :-
+	member(X, YS),
+	!,
+	intersection(XS, YS, ZS).
+	
+intersection([_ | XS], YS, ZS) :-
+	!,
+	intersection(XS, YS, ZS).
+
+intersection([], _, []) :- !.
+intersection(_, [], []) :- !.	
+	
+difference([], _, []) :-!.
+difference(S, [], S) :-!.
+difference([X | XS], YS, [X | ZS]) :-
+	not(member(X, YS)),
+	!,
+	difference(XS, YS, ZS).
+	
+difference([_ | XS], YS, ZS) :-
+	difference(XS, YS, ZS).
+	
+gaps(B, Bag) :-
+	findall(gap(Space, Spokes, AllowedTiles), isGap(Space, B, Spokes, AllowedTiles), Bag).
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+plays(B, H, Bag3, L) :-
+	gaps(B, Bag1),
+	assert((intersectWithHand(gap(Space, Spokes, AllowedTiles), gap(Space, Spokes, Intersection)) :- intersection(H, AllowedTiles, Intersection))), 
+	maplist(intersectWithHand, Bag1, Bag2),
+	retractall(intersectWithHand(_,_)),
+	include(matchesHand, Bag2, Bag3),
+	length(Bag3, L).
+
+matchesHand(gap(_,_,Allowed)) :- length(Allowed, N), N > 0.
 
 	
-sample(
+	sample(
 	[[play(space(1,11), tile(cross,yellow))],
 	[play(space(2,11), tile(cross,orange)),play(space(2,15), tile(circle,yellow))],
 	[play(space(3,11), tile(cross,purple)),play(space(3,13), tile(clover,green)),play(space(3,15), tile(circle,blue))],
@@ -328,71 +409,4 @@ sample(
 	[play(space(11,16), tile(square,red)),play(space(11,17), tile(clover,red))]
 ]).
 
-stencils(U, D) :-
-	between(0, 5, U),
-	T is 5 - U,
-	between(0, T, D).
-	
-gaps(S, B, N) :-
-	between(0, 15, X),
-	between(0, 29, Y),
-	isSpace(X, Y, S),
-	isGap(S, B, N).
-	
-/* Is Legal */ 
-isLegal(T) :- isSingleColumn(T), !, isLegalTile(T), !.
-isLegal(T) :- isSingleRow(T), !, isLegalTile(T), !. 
-isLegalTile(T) :- isSingleShape(T), !, isLegalShape(T), !.
-isLegalTile(T) :- isSingleColor(T), !, isLegalColor(T), !.
-
-	
-isLegalColor([play(space(_,_), tile(S, _)) | Rest]) :- 
-		notContainsShape(Rest, S),
-		!,
-		isLegalColor(Rest).
-isLegalColor([play(space(_,_), tile(_, _))]).
-isLegalColor([]).
-
-isLegalShape([play(space(_,_), tile(_, C)) | Rest]) :-
-		notContainsColor(Rest, C),
-		!,
-		isLegalShape(Rest).
-isLegalShape([play(space(_,_), tile(_, _))]).
-isLegalShape([]).
-
-		
-/* Contains */
-notContainsColor([play(space(_,_), tile(_, C))], Color) :-
-		C \= Color.
-notContainsColor([play(space(_,_), tile(_, C)) | Rest], Color) :- 
-		C \= Color,
-		!,
-		notContainsColor(Rest, Color).
-
-notContainsShape([play(space(_,_), tile(S, _))], Shape) :-
-		S \= Shape.
-notContainsShape([play(space(_,_), tile(S, _)) | Rest], Shape) :- 
-		S \= Shape,
-		!,
-		notContainsShape(Rest, Shape).
-		
-/* Single Type */
-isSingleColor([]).
-isSingleColor([play(space(_,_), tile(_, _))]) :- !.
-isSingleColor([play(space(_,_), tile(_, C1)), play(space(_,_), tile(_, C2))]) :- C1 == C2.
-isSingleColor([play(space(_,_), tile(_, C1)), play(space(_,_), tile(S2, C2)) | Rest]) :- C1 == C2, !, isSingleColor([play(space(_,_), tile(S2,C2)) | Rest]).
-
-isSingleShape([]).
-isSingleShape([play(space(_,_), tile(_, _))]) :- !.
-isSingleShape([play(space(_,_),tile(S1, _)), play(space(_,_),tile(S2, _))]) :- S1 == S2.
-isSingleShape([play(space(_,_),tile(S1, _)), play(space(_,_),tile(S2, C2)) | Rest]) :- S1 == S2, !, isSingleShape([play(space(_,_),tile(S2,C2)) | Rest]).
-
-isSingleRow([]).
-isSingleRow([play(space(_,_), tile(_, _))]) :- !.
-isSingleRow([play(space(X1,_),tile(_, _)), play(space(X2,_),tile(_, _))]) :- X1 == X2.
-isSingleRow([play(space(X1,_),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Rest]) :- X1 == X2, !, isSingleRow([play(space(X2,Y2),tile(_,_)) | Rest]).
-
-isSingleColumn([]).
-isSingleColumn([play(space(_,_), tile(_, _))]) :- !.
-isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(_,Y2),tile(_, _))]) :- Y1 == Y2.
-isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Rest]) :- Y1 == Y2, !, isSingleColumn([play(space(X2,Y2),tile(_,_)) | Rest]).
+hand([tile(clover,orange), tile(clover,red), tile(circle,blue), tile(star, purple), tile(circle, blue), tile(circle,yellow)]).

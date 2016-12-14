@@ -17,7 +17,7 @@ namespace Qwirkle
         private bool _expanded;
         public Board()
         {
-            GameArea = new Block[15, 30];
+            GameArea = new Block[16, 30];
             _blockBag = MakeBlockBag();
             _expanded = false;
         }

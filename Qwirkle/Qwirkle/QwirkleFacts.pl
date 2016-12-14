@@ -466,7 +466,7 @@ isSingleColumn([play(space(_,Y1),tile(_, _)), play(space(X2,Y2),tile(_, _)) | Re
 matchesHand(gap(_,_,Allowed)) :- length(Allowed, N), N > 0.
 
 	
-	sample(
+sampleB(
 	[[play(space(1,11), tile(cross,yellow))],
 	[play(space(2,11), tile(cross,orange)),play(space(2,15), tile(circle,yellow))],
 	[play(space(3,11), tile(cross,purple)),play(space(3,13), tile(clover,green)),play(space(3,15), tile(circle,blue))],
@@ -480,4 +480,4 @@ matchesHand(gap(_,_,Allowed)) :- length(Allowed, N), N > 0.
 	[play(space(11,16), tile(square,red)),play(space(11,17), tile(clover,red))]
 ]).
 
-hand([tile(clover,orange), tile(clover,red), tile(circle,blue), tile(star, purple), tile(circle, blue), tile(circle,yellow)]).
+sampleH([tile(clover,orange), tile(clover,red), tile(circle,blue), tile(star, purple), tile(circle, blue), tile(circle,yellow)]).

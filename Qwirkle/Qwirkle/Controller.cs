@@ -80,11 +80,11 @@ namespace Qwirkle
                     _human.UpdateScore(humanScore);
                     _human.RemoveBlocksFromHand(play);
                     _human.FillHand(ReplaceUsedBlocks(play.Count));
-                   
+
                     //parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString()));
-                    
+
                     //List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(test));
-                    List<Tuple<Block, int, int>> aiPlay = _AI.PlayOnGap(parseReturnedGaps(_prolog.GetGaps(_board.ConvertBoardToString())));
+                    List<Tuple<Block, int, int>> aiPlay = _AI.DeterminePlay(parseReturnedPlays(_prolog.GetMoves(_board.ConvertBoardToString(), _AI.HandString())), Score);
                     _AI.RemoveBlocksFromHand(aiPlay);
                     
                     _AI.FillHand(ReplaceUsedBlocks(aiPlay.Count));
@@ -151,7 +151,7 @@ namespace Qwirkle
             foreach (string[] st in test)
             {
                 List<Tuple<string, string, int, int>> holdList = new List<Tuple<string, string, int, int>>();
-                if (st.Length > 3)
+                if(st.Length == 0)
                 {
                     continue;
                 }
@@ -165,9 +165,9 @@ namespace Qwirkle
                     {
                         if (st[i] == "space")
                         {
-                            //Tuple<string, string, int, int> hold = new Tuple<string, string, int, int>(st[i + 4], st[i + 5], Convert.ToInt32(st[i + 1]), Convert.ToInt32(st[i + 2]));
-                            //i += 5;
-                            //holdList.Add(hold);
+                            Tuple<string, string, int, int> hold = new Tuple<string, string, int, int>(st[i + 4], st[i + 5], Convert.ToInt32(st[i + 1]), Convert.ToInt32(st[i + 2]));
+                            i += 5;
+                            holdList.Add(hold);
                         }
                     }
                 }

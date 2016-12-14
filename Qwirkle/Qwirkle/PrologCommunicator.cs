@@ -28,7 +28,7 @@ namespace Qwirkle
 
         public bool TestMove(string move)
         {
-            string qString = "isLegal(" + move + ")";
+            string qString = "isLegalPlay(" + move + ")";
             using (PlQuery q = new PlQuery(qString))
             {
                 var v = new List<PlTermV>(q.Solutions);
@@ -38,8 +38,17 @@ namespace Qwirkle
 
         public string GetMoves(string board, string hand)
         {
+            StringBuilder sb = new StringBuilder();
+            string qString = "plays(" + board + ',' + hand + ", P)"; //"b1(B), isgapLeft(1, 3, B, N)";
+            using (PlQuery q = new PlQuery(qString))
+            {
+                foreach (PlQueryVariables v in q.SolutionVariables)
+                {
+                    sb.Append(v["P"]);
+                }
+            }
+            return sb.ToString();
 
-            return null;
         }
 
         public string GetGaps(string board)

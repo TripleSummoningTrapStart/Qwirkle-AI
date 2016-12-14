@@ -88,7 +88,6 @@ namespace Qwirkle
                 pb.Padding = pad;
                 pb.BackColor = Color.Red;
                 aiPlayHold.Add(pb);
-                //http://stackoverflow.com/questions/19775851/ability-to-find-winform-control-via-the-tag-property
             }
             lastAIPlay = aiPlayHold;
 

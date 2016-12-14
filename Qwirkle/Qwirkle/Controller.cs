@@ -45,7 +45,7 @@ namespace Qwirkle
         {
             foreach (UpdateDelegate d in _observer)
             {
-                d(_human.Hand, _human.Score, 0, aiPlay);
+                d(_human.Hand, _human.Score, _AI.Score, aiPlay);
             }
         }
         private Block[] MakeNewHand()
